@@ -55,7 +55,7 @@ trait AuthenticatesUsers
         // to login and redirect the user back to the login form. Of course, when this
         // user surpasses their maximum number of attempts they will get locked out.
         $this->incrementLoginAttempts($request);
-
+       toast('success', 'Login Berhasil');
         return $this->sendFailedLoginResponse($request);
     }
 
@@ -174,7 +174,7 @@ trait AuthenticatesUsers
         if ($response = $this->loggedOut($request)) {
             return $response;
         }
-
+      toast('Logout Berhasil', 'success');
         return $request->wantsJson()
             ? new JsonResponse([], 204)
             : redirect('/');

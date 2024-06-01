@@ -669,18 +669,20 @@ p {
 }
 .sidebar-custom-nav a i {
   font-size: 1.6rem;
-  color: #e7e6f3;
+  /* color: #e7e6f3; */
+  color: #0c0a09;
   margin: 0 0 5px 0;
 }
 .sidebar-custom-nav a:hover {
-  background-color: #463dc6;
+  background-color: #06b6d4;
 }
 .sidebar-custom-nav a.active {
   background: #2a229c;
   color: #ffffff;
 }
 .sidebar-custom-nav a.active i {
-  color: #ffffff;
+  /* color: #ffffff; */
+  color: #0c0a09;
 }
 
 @media screen and (max-height: 600px) {
@@ -693,7 +695,8 @@ p {
   width: 250px;
   padding: 0;
   height: 100vh;
-  background: #362eb3;
+  background: #4ade80;
+  /* background: #ffffff; */
   position: fixed;
   top: 0;
   left: 0;
@@ -728,8 +731,10 @@ p {
   flex-direction: row;
   position: relative;
   padding: 5px 20px 5px 20px;
-  color: #eef2f8;
-  background: #362eb3;
+  /* color: #eef2f8; */
+  color: #0c0a09;
+  background: #4ade80;
+  /* background: #eef1f6; */
   font-size: 0.9rem;
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
@@ -740,7 +745,8 @@ p {
   font-size: 1.25rem;
   min-width: 30px;
   min-height: 40px;
-  color: #eef2f8;
+  /* color: #eef2f8; */
+  color: #0c0a09;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -763,7 +769,7 @@ p {
 }
 .sidebar-menu ul li a:hover {
   color: #ffffff;
-  background-color: #463dc6;
+  background-color: #06b6d4;
   background-image: radial-gradient(92% 85% at 89% 80%, rgba(0, 0, 0, 0.23) 0%, transparent 86.18%), radial-gradient(60% 85% at 25% 20%, rgba(255, 255, 255, 0.41) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%);
 }
 .sidebar-menu ul li a:hover i {
@@ -774,7 +780,7 @@ p {
 }
 .sidebar-menu ul li.active-page-link a {
   color: #ffffff;
-  background-color: #2a229c;
+  background-color: #06b6d4;
   background-image: radial-gradient(92% 85% at 89% 80%, rgba(0, 0, 0, 0.23) 0%, transparent 86.18%), radial-gradient(60% 85% at 25% 20%, rgba(255, 255, 255, 0.41) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%);
 }
 .sidebar-menu ul li.active-page-link a i {

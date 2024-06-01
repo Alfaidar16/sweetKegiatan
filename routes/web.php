@@ -1,6 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +20,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', function() {
-    return view('Auth.Dashboard');
-});
+Auth::routes();
+
+ Route::get('/panel/login', [\App\Http\Controllers\Auth\LoginController::class, 'showLoginForm']);
+ Route::post('/login/auth', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->name('auth.login');
+
+ Route::prefix('panel')->middleware('auth')->group(function() {
+    Route::prefix('dashboard')->group(function() {
+        Route::get('', [\App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+    });
+    Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+ });

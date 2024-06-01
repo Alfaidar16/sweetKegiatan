@@ -31,7 +31,8 @@
 		<link rel="stylesheet" href="{{ asset('/TemplateDashboard/design/assets/fonts/bootstrap/bootstrap-icons.css')}}" />
 
 		<!-- Main css -->
-		<link rel="stylesheet" href="{{ asset('/TemplateDashboard/design/assets/css/main.min.css')}}" />
+		<link rel="stylesheet" href="{{ asset('/TemplateDashboard/design/assets/css/main.css')}}" />
+		<link rel="stylesheet" href="{{ asset('/TemplateDashboard/design/assets/css/login.css')}}" />
 
 		<!-- *************
 			************ Vendor Css Files *************
@@ -88,6 +89,7 @@
 
 		<!-- Main Js Required -->
 		<script src="{{ asset('/TemplateDashboard/design/assets/js/main.js')}}"></script>
+		@include('sweetalert::alert')
         @yield('js')
 	</body>
 
