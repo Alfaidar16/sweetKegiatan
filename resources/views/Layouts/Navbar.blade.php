@@ -14,28 +14,28 @@
     <div class="sidebar-menu">
         <div class="sidebarMenuScroll">
             <ul>
-                <li class="active-page-link">
-                    <a href="index.html">
+                <li class="@if (Route::is('dashboard')) active-page-link @endif">
+                    <a href="{{ route('dashboard')}}">
                         <i class="bi bi-house"></i>
                         <span class="menu-text">Dashboard</span>
                     </a>
                 </li>
-                <li>
-                    <a href="widgets.html">
-                        <i class="bi bi-box"></i>
-                        <span class="menu-text">Widgets</span>
+                <li class="@if (Route::is('kegiatan')) active-page-link @endif">
+                    <a href="{{ route('kegiatan')}}">
+                        <i class="bi bi-text-right"></i>
+                        <span class="menu-text">Kegiatan Mingguan</span>
                     </a>
                 </li>
-                <li class="sidebar-dropdown">
+                <li class="sidebar-dropdown @if (Route::is('user.index')) active-page-link @endif">
                     <a href="#">
-                        <i class="bi bi-collection"></i>
+                        <i class="bi bi-person-lines-fill"></i>
                         <span class="menu-text">Master User</span>
                         {{-- <span class="badge red">15</span> --}}
                     </a>
                     <div class="sidebar-submenu">
                         <ul>
                             <li>
-                                <a href="accordions.html">User</a>
+                                <a href="{{ route('user.index')}}">User</a>
                             </li>
                           
                            

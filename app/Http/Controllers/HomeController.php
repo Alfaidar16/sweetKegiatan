@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function Index() {
-        return view('Auth.Dashboard');
+
+        $with = [ 
+            'title' => 'Dashboard'
+        ];
+        return view('Auth.Dashboard')->with($with);
     }
 }

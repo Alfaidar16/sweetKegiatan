@@ -11,17 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('galeri_kegiatan', function (Blueprint $table) {
+        Schema::create('opd', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('opd_id');
-            $table->string('assets');
-            $table->string('image');
-            $table->string('nama_kegiatan');
+            $table->string('nama_opd');
             $table->string('slug');
-            $table->string('lokasi_kegiatan');
-            $table->text('uraian_kegiatan');
-            $table->string('url')->nullable();
-            $table->string('dokumen');
             $table->timestamps();
         });
     }
@@ -31,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('galeri_kegiatan');
+        Schema::dropIfExists('opd');
     }
 };

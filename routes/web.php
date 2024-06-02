@@ -29,5 +29,15 @@ Auth::routes();
     Route::prefix('dashboard')->group(function() {
         Route::get('', [\App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
     });
+
+    Route::prefix('kegiatan')->group(function () {
+      Route::get('', [\App\Http\Controllers\GaleriKegiatanController::class, 'Index'])->name('kegiatan');
+      Route::get('/create', [\App\Http\Controllers\GaleriKegiatanController::class, 'create'])->name('kegiatan.create');
+    });
+
+    Route::prefix('users')->group(function() {
+    Route::get('', [\App\Http\Controllers\UsersController::class, 'index'])->name('user.index');
+    Route::get('/create', [\App\Http\Controllers\UsersController::class, 'create'])->name('user.create');
+    });
     Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
  });

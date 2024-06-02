@@ -19,7 +19,7 @@
 		<link rel="shortcut icon" href="assets/images/favicon.svg" />
 
 		<!-- Title -->
-		<title>Admin Templates - Dashboard Templates - Admin Dashboards</title>
+		<title>@yield('judul')</title>
 
 		<!-- *************
 			************ Common Css Files *************
@@ -34,18 +34,104 @@
 		<link rel="stylesheet" href="{{ asset('/TemplateDashboard/design/assets/css/main.css')}}" />
 		<link rel="stylesheet" href="{{ asset('/TemplateDashboard/design/assets/css/login.css')}}" />
 
-		<!-- *************
-			************ Vendor Css Files *************
-		************ -->
 
+		{{-- Trix Editor --}}
+		<link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+		<script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
+		{{-- End --}}
+	   {{-- SweetA;ert --}}
+	   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<!-- Scrollbar CSS -->
 		<link rel="stylesheet" href="{{ asset('/TemplateDashboard/design/assets/vendor/overlay-scroll/OverlayScrollbars.min.css')}}" />
+		{{-- Data Table --}}
+		<link rel="stylesheet" href="{{ asset('/TemplateDashboard/design/assets/vendor/datatables/dataTables.bs5.css')}}" />
+		<link rel="stylesheet" href="{{ asset('/TemplateDashboard/design/assets/vendor/datatables/dataTables.bs5-custom.css')}}" />
 	</head>
 		
 
 	<body>
+  
+		
+	
 
-	  @yield('content')
+	  <div class="page-wrapper">
+		<!-- Page header starts -->
+		<div class="page-header">
+	  
+		  <div class="toggle-sidebar" id="toggle-sidebar">
+			  <i class="bi bi-list"></i>
+		  </div>
+	  
+		  <!-- Header actions ccontainer start -->
+		  <div class="header-actions-container">
+	  
+		   @include('Layouts.header')
+			  <!-- Header profile start -->
+			
+			  <!-- Header profile end -->
+			  <div class="modal fade" id="modal-logout" tabindex="-1" aria-hidden="true">
+				  <div class="modal-dialog modal-lg" style="width: 560px;">
+					  <div class="modal-content rounded">
+						  <div class="modal-header justify-content-end border-0 pb-0">
+							  <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+								  <span class="svg-icon svg-icon-1">
+									  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+										  <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
+											  <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
+											  <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1" />
+										  </g>
+									  </svg>
+								  </span>
+							  </div>
+						  </div>
+						  <div class="modal-body pt-0 pb-15 px-3 p-5 px-xl-20">
+							  <div class="mb-13 text-center">
+								  <h1 class="mb-3">Apakah Anda Ingin Keluar ?</h1>
+							  </div>
+							  <div class="d-flex text-center flex-row-fluid pt-15">
+								  <form action="{{ route('logout')}}" method="post">
+									  {{ csrf_field() }}
+									  <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
+									  <button type="submit" class="btn btn-danger">Logout</button>
+								  </form>
+							  </div>
+						  </div>
+					  </div>
+				  </div>
+			  </div>
+		  </div>
+		  <!-- Header actions ccontainer end -->
+	  
+	  </div>
+	  <!-- Page header ends -->
+			  <!-- Main container start -->
+			  <div class="main-container">
+	  
+				  <!-- Sidebar wrapper start -->
+					  @include('Layouts.Navbar')
+				  <!-- Sidebar wrapper end -->
+	  
+				  <!-- Content wrapper scroll start -->
+				  <div class="content-wrapper-scroll">
+	  
+					
+					@yield('content')
+					
+	  
+				  </div>
+				  <!-- Content wrapper scroll end -->
+	  
+				  <!-- App Footer start -->
+				  <div class="app-footer">
+					  <span>2024© Pemerintah Provinsi Sulawesi Selatan</span>
+				  </div>
+				  <!-- App footer end -->
+	  
+			  </div>
+			  <!-- Main container end -->
+	  
+		  </div>
+		  <!-- Page wrapper end -->
 
 		<!-- *************
 			************ Required JavaScript Files *************
@@ -86,9 +172,13 @@
 		<!-- Rating JS -->
 		<script src="{{ asset('/TemplateDashboard/design/assets/vendor/rating/raty.js')}}"></script>
 		<script src="{{ asset('/TemplateDashboard/design/assets/vendor/rating/raty-custom.js')}}"></script>
+		{{-- dataTable --}}
+		<script src="{{ asset('/TemplateDashboard/design/assets/vendor/datatables/dataTables.min.js')}}"></script>
+		<script src="{{ asset('/TemplateDashboard/design/assets/vendor/datatables/dataTables.bootstrap.min.js')}}"></script>
 
 		<!-- Main Js Required -->
 		<script src="{{ asset('/TemplateDashboard/design/assets/js/main.js')}}"></script>
+		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 		@include('sweetalert::alert')
         @yield('js')
 	</body>

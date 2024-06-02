@@ -9,10 +9,10 @@
         </a>
         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userSettings">
             <div class="header-profile-actions">
-                <a href="profile.html">Profile</a>
-                <a href="account-settings.html">Settings</a>
+                <a href="#">Profile</a>
+                <a href="#">Settings</a>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#modal-logout"
-                class="btn btn-danger btn-rounded btn-sm px-5">Sign Out</button>
+                class="border-0 btn-sm px-5">Sign Out</button>
              
             </div>
         </div>
