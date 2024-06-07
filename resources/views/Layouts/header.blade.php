@@ -12,7 +12,7 @@
                 <a href="#">Profile</a>
                 <a href="#">Settings</a>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#modal-logout"
-                class="border-0 btn-sm px-5">Sign Out</button>
+                class="border-0 px-4 bg-white">Sign Out</button>
              
             </div>
         </div>

@@ -10,7 +10,7 @@
         <div class="card">
             <div class="card-header mt-2">
                 <a href="{{ route('kegiatan.create')}}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Buat laporan</a>
-                <a href="" class="btn btn-success"><i class="bi bi-upload"></i> Cetak</a>
+                {{-- <a href="{{ route('generate.pdf')}}" class="btn btn-success"><i class="bi bi-upload"></i> Cetak</a> --}}
                 {{-- <div class="card-title">Highlight Row Column</div> --}}
             </div>
             <div class="card-body mt-5">
@@ -20,9 +20,9 @@
                             <tr>
                                 <th>No</th>
                                 <th>Dokumentasi</th>
-                                <th>Dasar Kegiatan</th>
-                                <th>Uraian Kegiatan</th>
+                                <th>Kegiatan</th>
                                 <th>Opd</th>
+                                <th style="width: 50px;">Uraian Kegiatan</th>
                                 <th>Url</th>
                                 <th>Aksi</th>
                             </tr>
@@ -66,10 +66,10 @@
                             "data": "nama_kegiatan"
                         },
                         {
-                            "data": "nama_opd"
+                            "data": "nama"
                         },
                         {
-                            "data": "uraian_kegiatan"
+                            "data": "narasi_kegiatan"
                         },
                         {
                             "data": "url"
@@ -83,7 +83,7 @@
                     ],
                     "bAutoWidth": false,
                     "columnDefs": [{
-                        targets: [0, 1, 2, 3, 4, 5, 6],
+                        targets: [0, 1, 2, 3, 4, 5],
                         className: 'text-left'
                     }],
                     "bDestroy": true,
@@ -91,6 +91,56 @@
             }
 
         });
+
+
+
+        function hapusKegiatan(id) {
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Anda akan menghapus Data Kegiatan",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    hapus(id);
+                }
+            })
+        }
+
+        function hapus(id) {
+            var _token = "{{ csrf_token() }}";
+            $.ajax({
+                url: "{{ route('kegiatan.destroy') }}",
+                method: "POST",
+                data: {
+                    _token: _token,
+                    id: id
+                },
+                beforeSend: function() {
+                    Swal.fire({
+                        title: 'Mohon Tunggu',
+                        icon: 'warning',
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    });
+                },
+                success: function(data) {
+                    console.log(data);
+                    Swal.fire({
+                        title: 'Success',
+                        text: data.message,
+                        icon: 'success',
+                    });
+                    setTimeout(() => {
+                        location.reload()
+                    }, 1000);
+                },
+                error: function() {}
+            })
+        }
 
 </script>
 @endsection

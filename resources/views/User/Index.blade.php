@@ -84,5 +84,55 @@
 
        });
 
+
+       function hapusUser(id) {
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Anda akan menghapus Data User",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    hapus(id);
+                }
+            })
+        }
+
+        function hapus(id) {
+            var _token = "{{ csrf_token() }}";
+            $.ajax({
+                url: "{{ route('user.destroy') }}",
+                method: "POST",
+                data: {
+                    _token: _token,
+                    id: id
+                },
+                beforeSend: function() {
+                    Swal.fire({
+                        title: 'Mohon Tunggu',
+                        icon: 'warning',
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    });
+                },
+                success: function(data) {
+                    console.log(data);
+                    Swal.fire({
+                        title: 'Success',
+                        text: data.message,
+                        icon: 'success',
+                    });
+                    setTimeout(() => {
+                        location.reload()
+                    }, 1000);
+                },
+                error: function() {}
+            })
+        }
+
+
 </script>
 @endsection

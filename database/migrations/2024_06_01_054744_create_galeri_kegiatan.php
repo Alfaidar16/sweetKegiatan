@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('galeri_kegiatan', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('opd_id');
-            $table->string('assets');
             $table->string('image');
             $table->string('nama_kegiatan');
             $table->string('slug');
             $table->string('lokasi_kegiatan');
-            $table->text('uraian_kegiatan');
+            $table->string('dasar_pelaksanaan');
+            $table->text('narasi_kegiatan');
+            $table->string('hari');
+            $table->string('tanggal');
             $table->string('url')->nullable();
             $table->string('dokumen');
             $table->timestamps();

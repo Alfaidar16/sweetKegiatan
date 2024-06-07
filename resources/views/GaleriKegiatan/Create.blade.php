@@ -6,7 +6,7 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
-        <form action="#" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('kegiatan.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
         <div class="card">
             <div class="card-header bg-primary">
@@ -16,40 +16,39 @@
             
                    <div class="col-md-12">
                     <div class="m-0 mb-3">
+                        <label class="form-label">Kegiatan</label>
+                        <input type="text" class="form-control p-2 pb-3 @error('nama_kegiatan') is-invalid @enderror" name="nama_kegiatan" required value="{{ old('nama_kegiatan')}}"/>
+                        @error('nama_kegiatan')
+                        <div class="invalid-feedback">
+                            {{ $message}}
+                        </div>
+                    @enderror
+                    </div>
+
+                    <div class="m-0 mb-3">
                         <label class="form-label">Dasar Kegiatan</label>
-                        <input type="text" class="form-control p-2 pb-3 @error('title') is-invalid @enderror" name="title" required value="{{ old('title')}}"/>
-                        @error('title')
+                        <input type="text" class="form-control p-2 pb-3 @error('dasar_pelaksanaan') is-invalid @enderror" name="dasar_pelaksanaan" required value="{{ old('dasar_pelaksanaan')}}"/>
+                        @error('dasar_pelaksanaan')
                         <div class="invalid-feedback">
                             {{ $message}}
                         </div>
                     @enderror
                     </div>
                    </div>
-                    <div class="mb-3">
-                        <label for="" class="mb-2">Uraian Kegiatan</label>
-                        <input id="x"  type="hidden" name="post" class="@error('post') is-invalid  @enderror" required value="{{ old('post')}}">
-                        <trix-editor input="x"></trix-editor>
-                        @error('post')
-                        <div class="invalid-feedback">
-                            {{ $message}}
-                        </div>
-                    @enderror
-                    </div>
+                 
                     <div class="row">
                         <div class="col-md-4">
                             <div class="m-0 mb-3">
                                 <div class="form-label">Waktu Pelaksanaan</div>
                                 <div class="input-group">
-                                    <input type="text" class="form-control @error('created_at') is-invalid
-                                        
-                                    @enderror" name="created_at" />
+                                    <input type="text"  class="form-control @error('created_at') is-invalid @enderror" name="tanggal" id="tanggal" />
         
                                     <span class="input-group-text">
                                         <i class="bi bi-calendar4"></i>
                                     </span>
                                   
                                 </div>
-                                @error('created_at')
+                                @error('tanggal')
                                 <strong class="mt-2">{{$message}}</strong>
                             @enderror
                             </div>
@@ -58,7 +57,7 @@
                             <div class="m-0 mb-3">
                                 <div class="form-label">Tempat Pelaksanaan</div>
                                 <div class="input-group">
-                                    <input type="text" class="form-control @error('created_at') is-invalid @enderror" name="created_at" />
+                                    <input type="text" class="form-control @error('lokasi_kegiatan') is-invalid @enderror" name="lokasi_kegiatan" value="{{ old('lokasi_kegiatan')}}" />
                                 </div>
                                
                             </div>
@@ -67,34 +66,57 @@
                     </div>
                     <div class="m-0 mb-3">
                         <label for="">Opd</label>
-                        <select class="opd form-control p-2" name="instansi_id" required>
+                        <select class="opd form-control p-2" name="opd_id" required>
                             <option value=""></option>
+                            @foreach ($opd as $key )
+                            <option value="{{ $key->id}}">{{$key->nama}}</option>
+                            @endforeach  
                           </select>
-
                      </div>
-
                      <div class="mb-3">
                         <label for="form-label">Gambar <span>(jpg,png, ukuran file 1mb)</span></label>
-                        <input type="file" class="form-control @error('cover') is-invalid  @enderror" name="cover">
-                        @error('cover')
+                        <input type="file" class="form-control @error('image') is-invalid  @enderror" name="image">
+                        @error('image')
                         <div class="invalid-feedback">
                          <strong>{{ $message}}</strong>
                         </div>
                     @enderror
                      </div>
-                     <div class="m-0 mb-3">
-                        <label class="form-label">Link/Url</label>
-                        <input type="text" class="form-control p-2 @error('title') is-invalid @enderror" name="title" required value="{{ old('title')}}"/>
-                        @error('title')
+                     <div class="mb-3">
+                        <label for="" class="mb-2">Narasi Kegiatan</label>
+                        <input id="x"  type="hidden" name="narasi_kegiatan" class="@error('narasi_kegiatan') is-invalid  @enderror" required value="{{ old('narasi_kegiatan')}}">
+                        <trix-editor input="x"></trix-editor>
+                        @error('narasi_kegiatan')
                         <div class="invalid-feedback">
                             {{ $message}}
                         </div>
                     @enderror
                     </div>
+                     <div class="m-0 mb-3">
+                        <label class="form-label">Link/Url</label>
+                        <input type="text" class="form-control p-2 @error('url') is-invalid @enderror" name="url" required value="{{ old('url')}}"/>
+                        @error('url')
+                        <div class="invalid-feedback">
+                            {{ $message}}
+                        </div>
+                    @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="form-label">Dokumen Hasil Kegiatan</label>
+                        <input type="file" class="form-control @error('dokumen') is-invalid  @enderror" name="dokumen">
+                        @error('dokumen')
+                        <div class="invalid-feedback">
+                         <strong>{{ $message}}</strong>
+                        </div>
+                    @enderror
+                     </div>
                    
                    <button type="submit" class="btn btn-primary"><i class="bi bi-check"></i>Simpan</button>
+                   
             </div>
+            
         </div>
+    </form>
     </div>
 </div>
 @endsection
@@ -103,6 +125,17 @@
 <script>
   $(document).ready(function() {
     $('.opd').select2();
+});
+
+
+$('#tanggal').daterangepicker({
+	singleDatePicker: true,
+  startDate: moment().startOf('hour'),
+  endDate: moment().startOf('hour').add(32, 'hour'),
+  locale: {
+    format: 'DD-MM-YYYY',
+    
+  }
 });
 </script>
 @endsection

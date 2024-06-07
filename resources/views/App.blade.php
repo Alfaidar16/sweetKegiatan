@@ -10,13 +10,13 @@
         @yield('css')
 		<meta name="description" content="Best Bootstrap Admin Dashboards" />
 		<meta name="author" content="Bootstrap Gallery" />
-        <link rel="canonical" href="https://www.bootstrap.gallery/">
-		<meta property="og:url" content="https://www.bootstrap.gallery">
+        <link rel="canonical" href="{{ asset('/TemplateDashboard/design/assets/images/faviconsulsel.png')}}">
+		<meta property="og:url" content="{{ asset('/TemplateDashboard/design/assets/images/faviconsulsel.png')}}">
 		<meta property="og:title" content="Admin Templates - Dashboard Templates | Bootstrap Gallery">
 		<meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards">
 		<meta property="og:type" content="Website">
 		<meta property="og:site_name" content="Bootstrap Gallery">
-		<link rel="shortcut icon" href="assets/images/favicon.svg" />
+		<link rel="shortcut icon" href="{{ asset('/TemplateDashboard/design/assets/images/faviconsulsel.png')}}" />
 
 		<!-- Title -->
 		<title>@yield('judul')</title>
@@ -46,6 +46,9 @@
 		{{-- Data Table --}}
 		<link rel="stylesheet" href="{{ asset('/TemplateDashboard/design/assets/vendor/datatables/dataTables.bs5.css')}}" />
 		<link rel="stylesheet" href="{{ asset('/TemplateDashboard/design/assets/vendor/datatables/dataTables.bs5-custom.css')}}" />
+		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+		{{-- Data Range picker --}}
+		<link rel="stylesheet" href="{{ asset('/TemplateDashboard/design/assets/vendor/daterange/daterange.css')}}" />
 	</head>
 		
 
@@ -175,10 +178,14 @@
 		{{-- dataTable --}}
 		<script src="{{ asset('/TemplateDashboard/design/assets/vendor/datatables/dataTables.min.js')}}"></script>
 		<script src="{{ asset('/TemplateDashboard/design/assets/vendor/datatables/dataTables.bootstrap.min.js')}}"></script>
+		{{-- DataPicker --}}
+		<script src="{{ asset('/TemplateDashboard/design/assets/vendor/daterange/daterange.js')}}"></script>
 
 		<!-- Main Js Required -->
 		<script src="{{ asset('/TemplateDashboard/design/assets/js/main.js')}}"></script>
 		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+		<script src="{{ asset('/TemplateDashboard/design/assets/vendor/apex/custom/widgets/sparkline.js')}}"></script>
+		<script src="{{ asset('/TemplateDashboard/design/assets/vendor/apex/custom/widgets/sparkline2.js')}}"></script>
 		@include('sweetalert::alert')
         @yield('js')
 	</body>
