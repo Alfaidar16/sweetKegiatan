@@ -29,9 +29,9 @@ Auth::routes();
 
  Route::prefix('panel')->middleware('auth')->group(function() {
   // Route::group(['middleware' => ['role:1|2']],function() {
-          Route::prefix('dashboard')->group(function() {
-            Route::get('', [\App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
-        });
+ 
+  Route::get('/dashboard', [\App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+       
 //  });
 
       Route::prefix('kegiatan')->group(function () {
@@ -58,6 +58,8 @@ Auth::routes();
        Route::prefix('laporan')->group(function() { 
           Route::get('', [\App\Http\Controllers\LaporanController::class, 'index'])->name('laporan.index');
           Route::get('/generate-pdf', [LaporanController::class, 'downloadPdf'])->name('generate.pdf');
+          Route::get('/month', [\App\Http\Controllers\LaporanController::class, 'dataBulan'])->name('generate.month');
+          Route::get('/pekan', [\App\Http\Controllers\LaporanController::class, 'dataPerpekan'])->name('generate.pekan');
         });
 
   

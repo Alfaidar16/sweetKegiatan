@@ -66,7 +66,7 @@
                             "data": "nama_kegiatan"
                         },
                         {
-                            "data": "nama"
+                            "data": "name"
                         },
                         {
                             "data": "narasi_kegiatan"

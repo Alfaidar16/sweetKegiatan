@@ -19,13 +19,30 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama</th>
+                                <th>Nip</th>
+                                <th>Nama</th>            
                                 <th>Email</th>
                                 <th>Roles</th>
                                 <th>Aksi</th>
+                              
                             </tr>
                         </thead>
-                     
+                        <tbody>
+                          {{-- @foreach ($data as $key )
+                          <tr>
+                           <td>{{ $loop->iteration }}</td>
+                           <td>{{ $key->nipbaru }}</td>
+                           <td>{{ $key->nama }}</td>  
+                           <td>{{ $key->email }}</td>
+                           <td>--</td>
+                           <td> 
+                            <a href="#" class="btn btn-success">Edit</a>
+                            <a href="#" class="btn btn-danger">Hapus</a>
+                           </td>
+                        </tr>
+                          @endforeach --}}
+                          
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -34,7 +51,22 @@
 </div>
 @endsection
 @section('js')
-<script>
+<script> 
+  $(document).ready(function () {
+    $('#dataUser').DataTable({
+        "pageLength": 10,
+        "searching": true,
+        "processing": true,
+        "serverside": true,
+        "scrollX": true,
+        "language": {
+            "processing": 'Memuat...'
+        },
+        
+    });
+  })
+</script>
+{{-- <script>
     $(document).ready(function() {
            load_data();
 
@@ -134,5 +166,5 @@
         }
 
 
-</script>
+</script> --}}
 @endsection

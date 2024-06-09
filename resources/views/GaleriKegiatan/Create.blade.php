@@ -64,7 +64,7 @@
                            </div>
         
                     </div>
-                    <div class="m-0 mb-3">
+                    {{-- <div class="m-0 mb-3">
                         <label for="">Opd</label>
                         <select class="opd form-control p-2" name="opd_id" required>
                             <option value=""></option>
@@ -72,11 +72,41 @@
                             <option value="{{ $key->id}}">{{$key->nama}}</option>
                             @endforeach  
                           </select>
-                     </div>
+                     </div> --}}
+                     <label for="form-label">Gambar <span>(jpg,png, ukuran file 1mb)</span></label>
                      <div class="mb-3">
-                        <label for="form-label">Gambar <span>(jpg,png, ukuran file 1mb)</span></label>
-                        <input type="file" class="form-control @error('image') is-invalid  @enderror" name="image">
-                        @error('image')
+                       
+                        <img src="{{ asset('/templateDashboard/design/assets/images/no-image.jpg') }}" id="preview" alt=""
+                        class="img-fluid mb-2" width="300px">
+                     
+                        <input type="file" class="form-control @error('image') is-invalid  @enderror" name="image1" id="gambar">
+                        @error('image1')
+                        <div class="invalid-feedback">
+                         <strong>{{ $message}}</strong>
+                        </div>
+                    @enderror
+                     </div>
+                     <label for="form-label">Gambar <span>(jpg,png, ukuran file 1mb)</span></label>
+                     <div class="mb-3">
+                       
+                        <img src="{{ asset('/templateDashboard/design/assets/images/no-image.jpg') }}" id="text2" alt=""
+                        class="img-fluid mb-2" width="300px">
+                     
+                        <input type="file" class="form-control @error('image2') is-invalid  @enderror" name="image2" id="gambar2">
+                        @error('image2')
+                        <div class="invalid-feedback">
+                         <strong>{{ $message}}</strong>
+                        </div>
+                    @enderror
+                     </div>
+                     <label for="form-label">Gambar <span>(jpg,png, ukuran file 1mb)</span></label>
+                     <div class="mb-3">
+                       
+                        <img src="{{ asset('/templateDashboard/design/assets/images/no-image.jpg') }}" id="contoh3" alt=""
+                        class="img-fluid mb-2" width="300px">
+                     
+                        <input type="file" class="form-control @error('image3') is-invalid  @enderror" name="image3" id="gambar3">
+                        @error('image3')
                         <div class="invalid-feedback">
                          <strong>{{ $message}}</strong>
                         </div>
@@ -137,5 +167,62 @@ $('#tanggal').daterangepicker({
     
   }
 });
+
+
+
+
+function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#preview').attr('src', e.target.result);
+                    $('#preview').show();
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#gambar").change(function() {
+            readURL(this);
+        });
+
+
+        function gambar2(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#text2').attr('src', e.target.result);
+                    $('#text2').show();
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#gambar2").change(function() {
+            gambar2(this);
+        });
+
+
+        function gambar3(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#contoh3').attr('src', e.target.result);
+                    $('#contoh3').show();
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#gambar3").change(function() {
+            gambar3(this);
+        });
+       
 </script>
 @endsection

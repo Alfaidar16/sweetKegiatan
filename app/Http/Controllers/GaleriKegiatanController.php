@@ -8,6 +8,7 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB; 
 use App\Http\Controllers\Controller;
 use App\Models\GaleriKegiatan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class GaleriKegiatanController extends Controller
@@ -16,19 +17,27 @@ class GaleriKegiatanController extends Controller
 
         if ($request->ajax()) {
             $kegiatan = DB::table('galeri_kegiatan')
-             ->leftJoin('opd', 'galeri_kegiatan.opd_id', '=', 'opd.id')
-           ->select('opd.*', 'galeri_kegiatan.*')
+             ->leftJoin('users', 'galeri_kegiatan.users_id', '=', 'users.id')
+           ->select('users.*', 'galeri_kegiatan.*')
            ->orderBy('galeri_kegiatan.created_at', 'desc')
             ->get();
               return Datatables::of($kegiatan)
                 ->addIndexColumn()->editColumn('narasi_kegiatan', function ($kegiatan) {
                     $action = '<td class="text-wrap">'. $kegiatan->narasi_kegiatan .'</td>';
-
                     return $action;
-                })->editColumn('image', function($kegiatan) {
-                    $gambar = '
-                      <td><img src="('. asset('upload/kegiatan/' . $kegiatan->image).')"</td>';
-                    return $gambar;
+                })->editColumn('image', function($kegiatan) {          
+                    $imageFiles = explode(",", $kegiatan->image);
+                    $imageTags = [];
+                    foreach ($imageFiles as $file) {
+                        $file = trim($file); 
+                        if ($file) {
+                        
+                            $imageTags[] = '<img src="' . asset('upload/kegiatan' . $file) . '" style="max-width: 100px; max-height: 100px; margin-right: 10px;">';
+                        }
+                    }
+                    $imageString = implode('', $imageTags);
+                    return $imageString ? $imageString : '-';
+                 
                 })
                 ->editColumn('aksi', function ($kegiatan) {
                        $actionButton = '
@@ -68,7 +77,9 @@ class GaleriKegiatanController extends Controller
         $this->validate($request, [
             'nama_kegiatan' => 'required|string|max:255',
             'dasar_pelaksanaan' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4048', // Validasi untuk file gambar
+            'image1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4048',
+            'image2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4048',
+            'image3' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4048', // Validasi untuk file gambar
             'lokasi_kegiatan' => 'required|string|max:255',
             'dokumen' => 'required|file|mimes:pdf,doc,docx|max:10240', // Validasi untuk file dokumen
             'narasi_kegiatan' => 'required',
@@ -77,7 +88,9 @@ class GaleriKegiatanController extends Controller
             'nama_kegiatan.string' => 'Nama kegiatan harus berupa teks.',
             'nama_kegiatan.max' => 'Nama kegiatan tidak boleh lebih dari 255 karakter.',
             'dasar_pelaksanaan.required' => 'Wajib Di Isi',
-            'image.required' => 'Gambar kegiatan harus diunggah.',
+            'image1.required' => 'Gambar Pertama Wajib Diisi',
+            'image2.nullable' => 'Gambar kegiatan boleh Kosong.',
+            'image3.nullable' => 'Gambar kegiatan boleh Kosong.',
             'image.image' => 'File yang diunggah harus berupa gambar.',
             'image.mimes' => 'Gambar harus berformat jpeg, png, jpg, gif, atau svg.',
             'image.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.',
@@ -91,9 +104,37 @@ class GaleriKegiatanController extends Controller
             'narasi_kegiatan.required' => 'Narasi kegiatan harus diisi.',
             'narasi_kegiatan.string' => 'Narasi kegiatan harus berupa teks.',
         ]);
-        $image = $request->file('image');
-        $imageName = time() . $image->getClientOriginalName();
-        $image->move(public_path($dir), $imageName);
+
+        $imagePaths = [];
+
+        // Simpan gambar pertama
+        if ($request->hasFile('image1')) {
+            $image1 = $request->file('image1');
+            $imageName1 = time() . '_' . $image1->getClientOriginalName();
+            $image1->move(public_path($dir), $imageName1);
+            $imagePaths[] =  $imageName1;
+        }
+
+        // Simpan gambar kedua
+        if ($request->hasFile('image2')) {
+            $image2 = $request->file('image2');
+            $imageName2 = time() . '_' . $image2->getClientOriginalName();
+            $image2->move(public_path($dir), $imageName2);
+            $imagePaths[] =  $imageName2;
+        }
+
+        // Simpan gambar ketiga
+        if ($request->hasFile('image3')) {
+            $image3 = $request->file('image3');
+            $imageName3 = time() . '_' . $image3->getClientOriginalName();
+            $image3->move(public_path($dir), $imageName3);
+            $imagePaths[] =  $imageName3;
+        }
+
+        // Gabungkan path gambar menjadi satu string
+        $imagePathsString = implode(',', $imagePaths);
+
+
 
         $dokumen =  $request->file('dokumen');
         $dokumenName = time() . $dokumen->getClientOriginalName();
@@ -104,10 +145,10 @@ class GaleriKegiatanController extends Controller
             'lokasi_kegiatan' => $request->lokasi_kegiatan,
             'narasi_kegiatan' => $request->narasi_kegiatan,
             'dasar_pelaksanaan' => $request->dasar_pelaksanaan,
-            'image' => $imageName,
+            'image' => $imagePathsString ,
             'dokumen' => $dokumenName,
             'slug'  => Str::slug($request->nama_kegiatan),
-            'opd_id' => $request->opd_id,
+            'users_id' => Auth::user()->id,
             'hari' => date('l'),
             'url' =>  $request->url,
             'tanggal' => date('d-m-Y'),

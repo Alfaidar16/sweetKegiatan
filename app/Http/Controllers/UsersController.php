@@ -6,36 +6,44 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB; 
 use Illuminate\Support\Facades\Hash;
+use GuzzleHttp\Client;
 
 class UsersController extends Controller
 {
     public function index(Request $request) {
 
-        if ($request->ajax()) {
-            $user = DB::table('users')->get();
+        // if ($request->ajax()) {
+        //     $user = DB::table('users')->get();
             
-              return Datatables::of($user)
-                ->addIndexColumn()->editColumn('aksi', function ($user) {
-                       $actionButton = '
-                      <a href=" '. route('user.edit', $user->id).'" class="btn waves-effect waves-light btn-success btn-sm">
-                            <i class="bi bi-pencil-square"></i>
-                       </a>
-                        <button class="btn waves-effect waves-light btn-danger btn-sm" onclick="hapusUser(&quot;' . $user->id . '&quot;)">
-                            <i class="bi bi-trash"></i>
-                       </button>';
-                       return $actionButton;
+        //       return Datatables::of($user)
+        //         ->addIndexColumn()->editColumn('aksi', function ($user) {
+        //                $actionButton = '
+        //               <a href=" '. route('user.edit', $user->id).'" class="btn waves-effect waves-light btn-success btn-sm">
+        //                     <i class="bi bi-pencil-square"></i>
+        //                </a>
+        //                 <button class="btn waves-effect waves-light btn-danger btn-sm" onclick="hapusUser(&quot;' . $user->id . '&quot;)">
+        //                     <i class="bi bi-trash"></i>
+        //                </button>';
+        //                return $actionButton;
                      
-                   })
-                   ->escapeColumns([])
-                   ->make(true);
-           }
+        //            })
+        //            ->escapeColumns([])
+        //            ->make(true);
+        //    }
+
+        $client = new Client();
+        $urlrOpd = (string) $client->get('https://epinisi.sulselprov.go.id/api/pegawai?&size=15000&unit=102241')->getBody();
+        $dataPegawai = json_decode($urlrOpd);
+        dd($dataPegawai);
         $with = [
-            'title' => 'Users'
+            'title' => 'Users',
+            // 'data' => $dataPegawai
         ];
         return view('User.Index')->with($with);
     }
 
     public function create() {
+       
         $role = DB::table('roles')->get();
         $with = [
             'title' => 'Tambah User',

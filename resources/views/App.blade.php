@@ -49,6 +49,7 @@
 		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 		{{-- Data Range picker --}}
 		<link rel="stylesheet" href="{{ asset('/TemplateDashboard/design/assets/vendor/daterange/daterange.css')}}" />
+		<link rel="stylesheet" href="{{ asset('/TemplateDashboard/design/assets/vendor/dropzone/dropzone.min.css') }}" />
 	</head>
 		
 
@@ -186,6 +187,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 		<script src="{{ asset('/TemplateDashboard/design/assets/vendor/apex/custom/widgets/sparkline.js')}}"></script>
 		<script src="{{ asset('/TemplateDashboard/design/assets/vendor/apex/custom/widgets/sparkline2.js')}}"></script>
+		<script src="{{ asset('/templateDashboard/design/assets/vendor/dropzone/dropzone.min.js') }}"></script>
 		@include('sweetalert::alert')
         @yield('js')
 	</body>
