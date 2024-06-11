@@ -6,38 +6,75 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB; 
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 use GuzzleHttp\Client;
 
 class UsersController extends Controller
 {
     public function index(Request $request) {
-
-        // if ($request->ajax()) {
-        //     $user = DB::table('users')->get();
-            
-        //       return Datatables::of($user)
-        //         ->addIndexColumn()->editColumn('aksi', function ($user) {
-        //                $actionButton = '
-        //               <a href=" '. route('user.edit', $user->id).'" class="btn waves-effect waves-light btn-success btn-sm">
-        //                     <i class="bi bi-pencil-square"></i>
-        //                </a>
-        //                 <button class="btn waves-effect waves-light btn-danger btn-sm" onclick="hapusUser(&quot;' . $user->id . '&quot;)">
-        //                     <i class="bi bi-trash"></i>
-        //                </button>';
-        //                return $actionButton;
-                     
-        //            })
-        //            ->escapeColumns([])
-        //            ->make(true);
-        //    }
+        set_time_limit(300); 
 
         $client = new Client();
         $urlrOpd = (string) $client->get('https://epinisi.sulselprov.go.id/api/pegawai?&size=15000&unit=102241')->getBody();
         $dataPegawai = json_decode($urlrOpd);
-        dd($dataPegawai);
+
+        foreach($dataPegawai as $key) {
+            $dataPegawai[] = [
+                // 'id' => $key->id,
+                'nip' => $key->nipbaru,
+                'name' => $key->nama,
+                'jabatan' => $key->NJab,
+                'pangkat' => $key->NPang,
+                'kodejabatan' => $key->RincUnit1  . substr($key->RincUnit3, 0,2). $key->RincUnit2,
+                // 'golongan' => $key->golongan,
+                'unit' => $key->UnitKerja,
+                'email' => $key->email,
+                'password' => bcrypt($key->email),
+                // 'roles_id' => 2,
+            ];
+            // Cek apakah pengguna dengan email yang sama sudah ada
+         $existingUser = User::where('email', $dataPegawai['email'] ?? null)->first();
+
+            if (!$existingUser) {
+                // Jika pengguna tidak ada, buat pengguna baru
+                User::create($dataPegawai);
+            }
+      }
+
+        if ($request->ajax()) {
+            $user =  DB::table('users')
+            ->leftJoin('roles', 'users.roles_id', '=', 'roles.id')
+          ->select('roles.*', 'users.*')
+          ->orderBy('users.created_at', 'desc')
+           ->get();
+            
+              return Datatables::of($user)
+                ->addIndexColumn() ->editColumn('nama', function ($user) {
+                    if ($user->nama == null) {
+                        return '--';
+                    } else {
+                        return $user->nama;
+                    }
+                })
+                
+                ->editColumn('aksi', function ($user) {
+                       $actionButton = '
+                      <a href="#" class="btn waves-effect waves-light btn-success btn-sm">
+                            <i class="bi bi-pencil-square"></i>
+                       </a>
+                        <button class="btn waves-effect waves-light btn-danger btn-sm" onclick="hapusUser(&quot;' . $user->id . '&quot;)">
+                            <i class="bi bi-trash"></i>
+                       </button>';
+                       return $actionButton;
+                     
+                   })
+                   ->escapeColumns([])
+                   ->make(true);
+           }
+
         $with = [
             'title' => 'Users',
-            // 'data' => $dataPegawai
+            'data' => $dataPegawai
         ];
         return view('User.Index')->with($with);
     }

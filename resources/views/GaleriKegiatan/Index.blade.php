@@ -21,9 +21,9 @@
                                 <th>No</th>
                                 <th>Dokumentasi</th>
                                 <th>Kegiatan</th>
-                                <th>Opd</th>
+                                <th>Nama</th>
                                 <th style="width: 50px;">Uraian Kegiatan</th>
-                                <th>Url</th>
+                                <th>Pekan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -72,7 +72,7 @@
                             "data": "narasi_kegiatan"
                         },
                         {
-                            "data": "url"
+                            "data": "pekan"
                         },
                       
                         {

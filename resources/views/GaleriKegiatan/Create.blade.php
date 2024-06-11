@@ -64,15 +64,7 @@
                            </div>
         
                     </div>
-                    {{-- <div class="m-0 mb-3">
-                        <label for="">Opd</label>
-                        <select class="opd form-control p-2" name="opd_id" required>
-                            <option value=""></option>
-                            @foreach ($opd as $key )
-                            <option value="{{ $key->id}}">{{$key->nama}}</option>
-                            @endforeach  
-                          </select>
-                     </div> --}}
+                
                      <label for="form-label">Gambar <span>(jpg,png, ukuran file 1mb)</span></label>
                      <div class="mb-3">
                        
@@ -123,13 +115,17 @@
                     @enderror
                     </div>
                      <div class="m-0 mb-3">
-                        <label class="form-label">Link/Url</label>
-                        <input type="text" class="form-control p-2 @error('url') is-invalid @enderror" name="url" required value="{{ old('url')}}"/>
-                        @error('url')
-                        <div class="invalid-feedback">
-                            {{ $message}}
-                        </div>
-                    @enderror
+                        <label class="form-label">Pekan</label>
+                        <select class="form-select @error('pekan') 'is-invalid'  @enderror" aria-label="Default select example" name="pekan" >
+                            <option selected>--</option>
+                            <option value="Pekan 1">Pekan 1</option>
+                            <option value="Pekan 2">Pekan 2</option>
+                            <option value="Pekan 3">Pekan 3</option>
+                            <option value="Pekan 4">Pekan 4</option>
+                          </select>
+                          @error('pekan')
+                              <strong class="text-danger invalid-feedback">{{ $message }}</strong>
+                          @enderror
                     </div>
                     <div class="mb-3">
                         <label for="form-label">Dokumen Hasil Kegiatan</label>
@@ -140,9 +136,7 @@
                         </div>
                     @enderror
                      </div>
-                   
-                   <button type="submit" class="btn btn-primary"><i class="bi bi-check"></i>Simpan</button>
-                   
+                   <button type="submit" class="btn btn-primary"><i class="bi bi-check"></i>Simpan</button> 
             </div>
             
         </div>

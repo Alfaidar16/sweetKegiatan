@@ -65,25 +65,45 @@
                            </div>
         
                     </div>
-                    <div class="m-0 mb-3">
-                        <label for="">Opd</label>
-                        <select class="opd form-control p-2" name="opd_id" required>
-                         
-                            @foreach ($opd as $key )
-                            <option value="{{ $key->id }}" selected>{{ $key->nama }}</option>
-                            <option value="{{ $key->id}}">{{$key->nama}}</option>
-                            @endforeach  
-                          </select>
-                     </div>
-                     <div class="mb-3">
-                        <label for="form-label">Gambar <span>(jpg,png, ukuran file 1mb)</span></label>
-                        <input type="file" class="form-control @error('image') is-invalid  @enderror" name="image" value="{{  $kegiatan->image }}">
-                        @error('image')
-                        <div class="invalid-feedback">
-                         <strong>{{ $message}}</strong>
-                        </div>
-                    @enderror
-                     </div>
+                    <label for="form-label">Gambar <span>(jpg,png, ukuran file 1mb)</span></label>
+                    <div class="mb-3">
+                      
+                       <img src="{{ asset('/templateDashboard/design/assets/images/no-image.jpg') }}" id="preview" alt=""
+                       class="img-fluid mb-2" width="300px">
+                    
+                       <input type="file" class="form-control @error('image') is-invalid  @enderror" name="image1" id="gambar">
+                       @error('image1')
+                       <div class="invalid-feedback">
+                        <strong>{{ $message}}</strong>
+                       </div>
+                   @enderror
+                    </div>
+                    <label for="form-label">Gambar <span>(jpg,png, ukuran file 1mb)</span></label>
+                    <div class="mb-3">
+                      
+                       <img src="{{ asset('/templateDashboard/design/assets/images/no-image.jpg') }}" id="text2" alt=""
+                       class="img-fluid mb-2" width="300px">
+                    
+                       <input type="file" class="form-control @error('image2') is-invalid  @enderror" name="image2" id="gambar2">
+                       @error('image2')
+                       <div class="invalid-feedback">
+                        <strong>{{ $message}}</strong>
+                       </div>
+                   @enderror
+                    </div>
+                    <label for="form-label">Gambar <span>(jpg,png, ukuran file 1mb)</span></label>
+                    <div class="mb-3">
+                      
+                       <img src="{{ asset('/templateDashboard/design/assets/images/no-image.jpg') }}" id="contoh3" alt=""
+                       class="img-fluid mb-2" width="300px">
+                    
+                       <input type="file" class="form-control @error('image3') is-invalid  @enderror" name="image3" id="gambar3">
+                       @error('image3')
+                       <div class="invalid-feedback">
+                        <strong>{{ $message}}</strong>
+                       </div>
+                   @enderror
+                    </div>
                      <div class="mb-3">
                         <label for="" class="mb-2">Narasi Kegiatan</label>
                         <input id="x"  type="hidden" name="narasi_kegiatan" class="@error('narasi_kegiatan') is-invalid  @enderror" required value="{{ old('narasi_kegiatan', $kegiatan->narasi_kegiatan)}}">
@@ -94,14 +114,18 @@
                         </div>
                     @enderror
                     </div>
-                     <div class="m-0 mb-3">
-                        <label class="form-label">Link/Url</label>
-                        <input type="text" class="form-control p-2 @error('url') is-invalid @enderror" name="url" required value="{{ old('url', $kegiatan->url)}}"/>
-                        @error('url')
-                        <div class="invalid-feedback">
-                            {{ $message}}
-                        </div>
-                    @enderror
+                    <div class="m-0 mb-3">
+                        <label class="form-label">Pekan</label>
+                        <select class="form-select @error('pekan') 'is-invalid'  @enderror" aria-label="Default select example" name="pekan" >
+                            <option selected>{{ $kegiatan->pekan }}</option>
+                            <option value="Pekan 1">Pekan 1</option>
+                            <option value="Pekan 2">Pekan 2</option>
+                            <option value="Pekan 3">Pekan 3</option>
+                            <option value="Pekan 4">Pekan 4</option>
+                          </select>
+                          @error('pekan')
+                              <strong class="text-danger invalid-feedback">{{ $message }}</strong>
+                          @enderror
                     </div>
                     <div class="mb-3">
                         <label for="form-label">Dokumen Hasil Kegiatan</label>
@@ -139,5 +163,59 @@ $('#tanggal').daterangepicker({
     
   }
 });
+
+
+function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#preview').attr('src', e.target.result);
+                    $('#preview').show();
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#gambar").change(function() {
+            readURL(this);
+        });
+
+
+        function gambar2(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#text2').attr('src', e.target.result);
+                    $('#text2').show();
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#gambar2").change(function() {
+            gambar2(this);
+        });
+
+
+        function gambar3(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#contoh3').attr('src', e.target.result);
+                    $('#contoh3').show();
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#gambar3").change(function() {
+            gambar3(this);
+        });
 </script>
 @endsection

@@ -53,10 +53,12 @@ Auth::routes();
         Route::post('destroy', [\App\Http\Controllers\UsersController::class, 'destroy'])->name('user.destroy');
         });
 
-      
-  
        Route::prefix('laporan')->group(function() { 
           Route::get('', [\App\Http\Controllers\LaporanController::class, 'index'])->name('laporan.index');
+          Route::get('/filter/pekan/{id}', [LaporanController::class, 'filterByPekan'])->name('filter.pekan');
+           
+          // Route
+          // cetak Dokumen
           Route::get('/generate-pdf', [LaporanController::class, 'downloadPdf'])->name('generate.pdf');
           Route::get('/month', [\App\Http\Controllers\LaporanController::class, 'dataBulan'])->name('generate.month');
           Route::get('/pekan', [\App\Http\Controllers\LaporanController::class, 'dataPerpekan'])->name('generate.pekan');

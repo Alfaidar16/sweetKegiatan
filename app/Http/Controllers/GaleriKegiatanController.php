@@ -16,9 +16,10 @@ class GaleriKegiatanController extends Controller
     public function Index(Request $request) {
 
         if ($request->ajax()) {
+            $auth = Auth::user()->id;
             $kegiatan = DB::table('galeri_kegiatan')
-             ->leftJoin('users', 'galeri_kegiatan.users_id', '=', 'users.id')
-           ->select('users.*', 'galeri_kegiatan.*')
+             ->leftJoin('users', 'galeri_kegiatan.users_id', '=', 'users.id')->leftJoin('pekans', 'galeri_kegiatan.pekan_id', '=', 'pekans.id' )
+           ->select('users.*', 'pekans.*', 'galeri_kegiatan.*')->where('users.id', $auth)
            ->orderBy('galeri_kegiatan.created_at', 'desc')
             ->get();
               return Datatables::of($kegiatan)
@@ -83,6 +84,7 @@ class GaleriKegiatanController extends Controller
             'lokasi_kegiatan' => 'required|string|max:255',
             'dokumen' => 'required|file|mimes:pdf,doc,docx|max:10240', // Validasi untuk file dokumen
             'narasi_kegiatan' => 'required',
+            'pekan' => 'required'
         ], [
             'nama_kegiatan.required' => 'Nama kegiatan harus diisi.',
             'nama_kegiatan.string' => 'Nama kegiatan harus berupa teks.',
@@ -103,6 +105,7 @@ class GaleriKegiatanController extends Controller
             'dokumen.max' => 'Ukuran dokumen tidak boleh lebih dari 10MB.',
             'narasi_kegiatan.required' => 'Narasi kegiatan harus diisi.',
             'narasi_kegiatan.string' => 'Narasi kegiatan harus berupa teks.',
+            'pekan.required' => 'Laporan Pekan Wajib Di Isi'
         ]);
 
         $imagePaths = [];
@@ -150,8 +153,8 @@ class GaleriKegiatanController extends Controller
             'slug'  => Str::slug($request->nama_kegiatan),
             'users_id' => Auth::user()->id,
             'hari' => date('l'),
-            'url' =>  $request->url,
-            'tanggal' => date('d-m-Y'),
+            'pekan' =>  $request->pekan,
+            'tanggal' => date('Y-m-d'),
             'created_at' => date('Y-m-d H:i:s'),
         ]);
         toast('success', 'Data Berhasil DiTambahkan');
@@ -177,16 +180,21 @@ class GaleriKegiatanController extends Controller
         $this->validate($request, [
             'nama_kegiatan' => 'required|string|max:255',
             'dasar_pelaksanaan' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4048', // Validasi untuk file gambar
+            'image1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4048',
+            'image2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4048',
+            'image3' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4048', // Validasi untuk file gambar
             'lokasi_kegiatan' => 'required|string|max:255',
             'dokumen' => 'required|file|mimes:pdf,doc,docx|max:10240', // Validasi untuk file dokumen
             'narasi_kegiatan' => 'required',
+            'pekan' => 'required'
         ], [
             'nama_kegiatan.required' => 'Nama kegiatan harus diisi.',
             'nama_kegiatan.string' => 'Nama kegiatan harus berupa teks.',
             'nama_kegiatan.max' => 'Nama kegiatan tidak boleh lebih dari 255 karakter.',
             'dasar_pelaksanaan.required' => 'Wajib Di Isi',
-            'image.required' => 'Gambar kegiatan harus diunggah.',
+            'image1.required' => 'Gambar Pertama Wajib Diisi',
+            'image2.nullable' => 'Gambar kegiatan boleh Kosong.',
+            'image3.nullable' => 'Gambar kegiatan boleh Kosong.',
             'image.image' => 'File yang diunggah harus berupa gambar.',
             'image.mimes' => 'Gambar harus berformat jpeg, png, jpg, gif, atau svg.',
             'image.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.',
@@ -199,10 +207,35 @@ class GaleriKegiatanController extends Controller
             'dokumen.max' => 'Ukuran dokumen tidak boleh lebih dari 10MB.',
             'narasi_kegiatan.required' => 'Narasi kegiatan harus diisi.',
             'narasi_kegiatan.string' => 'Narasi kegiatan harus berupa teks.',
+             'pekan.required' => 'Pekan Wajbi Di Isi'
         ]);
-        $image = $request->file('image');
-        $imageName = time() . $image->getClientOriginalName();
-        $image->move(public_path($dir), $imageName);
+      // Simpan gambar pertama
+      if ($request->hasFile('image1')) {
+        $image1 = $request->file('image1');
+        $imageName1 = time() . '_' . $image1->getClientOriginalName();
+        $image1->move(public_path($dir), $imageName1);
+        $imagePaths[] =  $imageName1;
+    }
+
+    // Simpan gambar kedua
+    if ($request->hasFile('image2')) {
+        $image2 = $request->file('image2');
+        $imageName2 = time() . '_' . $image2->getClientOriginalName();
+        $image2->move(public_path($dir), $imageName2);
+        $imagePaths[] =  $imageName2;
+    }
+
+    // Simpan gambar ketiga
+    if ($request->hasFile('image3')) {
+        $image3 = $request->file('image3');
+        $imageName3 = time() . '_' . $image3->getClientOriginalName();
+        $image3->move(public_path($dir), $imageName3);
+        $imagePaths[] =  $imageName3;
+    }
+
+    // Gabungkan path gambar menjadi satu string
+    $imagePathsString = implode(',', $imagePaths);
+
 
         $dokumen =  $request->file('dokumen');
         $dokumenName = time() . $dokumen->getClientOriginalName();
@@ -213,12 +246,12 @@ class GaleriKegiatanController extends Controller
             'lokasi_kegiatan' => $request->lokasi_kegiatan,
             'narasi_kegiatan' => $request->narasi_kegiatan,
             'dasar_pelaksanaan' => $request->dasar_pelaksanaan,
-            'image' => $imageName,
+            'image' =>  $imagePathsString,
             'dokumen' => $dokumenName,
             'slug'  => Str::slug($request->nama_kegiatan),
-            'opd_id' => $request->opd_id,
+            'users_id' => Auth::user()->id,
             'hari' => date('l'),
-            'url' =>  $request->url,
+            'pekan' =>  $request->pekan,
             'tanggal' => date('Y-m-d'),
             'created_at' => date('Y-m-d H:i:s'),
         
@@ -235,41 +268,5 @@ class GaleriKegiatanController extends Controller
         return redirect()->route('kegiatan');
     }
 
-    public function generatePdf($id) {
-        // $data = [
-        //     'title' => 'Laporan Kegiatan',
-        //     'date' => date('m/d/Y'),
-        //     'activities' => [
-        //         [
-        //             'no' => 1,
-        //             'kegiatan' => 'Mempersiapkan dan Menghadiri Undangan Apel Pagi Bersama Pj Gubernur Sulawesi Selatan',
-        //             'dasar_pelaksanaan' => 'Surat Pj. Sekretariat Daerah Provinsi Sulawesi Selatan Nomor: 800.1.6.2/6728BKD, Tanggal 26 Mei 2024.',
-        //             'uraian' => 'Apel Bersama Penjabat Gubernur Sulawesi Selatan Prof. Dr. Zudan Arif Fakhrulloh S.H, M.H Dengan Seluruh OPD Lingkup Pemerintah Provinsi Sulawesi Selatan Secara Virtual Melalui Media Zoom Meeting.',
-        //             'images' => [
-        //                 '/TemplateDashboard/assets/design/images/transparent-img1.png',
-        //                 '/TemplateDashboard/assets/design/images/transparent-img1.png'
-        //             ]
-        //         ],
-        //         // Tambahkan kegiatan lainnya jika ada
-        //     ]
-        // ];
-
-        // $pdf = PDF::loadView('Auth.laporan_kegiatan', $data);
-
-        // return $pdf->download('laporan_kegiatan');
-
-       
-        $template = new \PhpOffice\PhpWord\TemplateProcessor(public_path("format-word.docx"));
-
-        $template->setValue('opd', 'jsndjsnd');
-       
-        $saveDocPath = public_path('new-result' . date("ymdhis") . '.docx');
-        $template->saveAs($saveDocPath);
-
-        $paramsUrl = url("new-result" . date("ymdhis") . ".docx");
-        
-       
-
-        return redirect($paramsUrl);
-    }
+   
 }

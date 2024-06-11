@@ -19,30 +19,13 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nip</th>
-                                <th>Nama</th>            
+                                <th>Sekretariat</th>
+                                <th>Nip</th>          
                                 <th>Email</th>
                                 <th>Roles</th>
-                                <th>Aksi</th>
-                              
+                                <th>Aksi</th>                             
                             </tr>
                         </thead>
-                        <tbody>
-                          {{-- @foreach ($data as $key )
-                          <tr>
-                           <td>{{ $loop->iteration }}</td>
-                           <td>{{ $key->nipbaru }}</td>
-                           <td>{{ $key->nama }}</td>  
-                           <td>{{ $key->email }}</td>
-                           <td>--</td>
-                           <td> 
-                            <a href="#" class="btn btn-success">Edit</a>
-                            <a href="#" class="btn btn-danger">Hapus</a>
-                           </td>
-                        </tr>
-                          @endforeach --}}
-                          
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -52,70 +35,59 @@
 @endsection
 @section('js')
 <script> 
-  $(document).ready(function () {
-    $('#dataUser').DataTable({
-        "pageLength": 10,
-        "searching": true,
-        "processing": true,
-        "serverside": true,
-        "scrollX": true,
-        "language": {
-            "processing": 'Memuat...'
-        },
-        
-    });
-  })
+      $(document).ready(function() {
+            load_data();
+
+            function load_data(unit = '') {
+                $('#dataUser').DataTable({
+                    "pageLength": 10,
+                    "searching": true,
+                    "processing": true,
+                    "serverside": true,
+                    "scrollX": true,
+                    "language": {
+                        "processing": 'Memuat...'
+                    },
+                    "serverSide": true,
+                    "ajax": {
+                        url: "{{ route('user.index') }}",
+                    },
+                    "columns": [{
+                            "data": "DT_RowIndex",
+                            "orderable": false,
+                            "searchable": false
+                        },
+                        {
+                            "data": "unit"
+                        },
+                        {
+                            "data": "nip"
+                        },
+                        {
+                            "data": "email"
+                        },
+                        {
+                            "data": "nama"
+                        },
+                        {
+                            "data": "aksi",
+                            "orderable": false,
+                            "searchable": false
+                        },
+                    ],
+                    "bAutoWidth": false,
+                    "columnDefs": [{
+                        targets: [0, 1, 2, 3, 4, 5],
+                        className: 'text-left'
+                    }],
+                    "bDestroy": true,
+                });
+            }
+
+        });
 </script>
 {{-- <script>
-    $(document).ready(function() {
-           load_data();
-
-           function load_data(unit = '') {
-               $('#dataUser').DataTable({
-                   "pageLength": 10,
-                   "searching": true,
-                   "processing": true,
-                   "serverside": true,
-                   "scrollX": true,
-                   "language": {
-                       "processing": 'Memuat...'
-                   },
-                   "serverSide": true,
-                   "ajax": {
-                       url: "{{ route('user.index') }}",
-                   },
-                   "columns": [{
-                           "data": "DT_RowIndex",
-                           "orderable": false,
-                           "searchable": false
-                       },
-                       {
-                           "data": "name"
-                       },
-                       {
-                           "data": "email"
-                       },
-                       {
-                           "data": "name"
-                       },
-                    
-                       {
-                           "data": "aksi",
-                           "orderable": false,
-                           "searchable": false
-                       },
-                   ],
-                   "bAutoWidth": false,
-                   "columnDefs": [{
-                       targets: [0, 1, 2, 3],
-                       className: 'text-left'
-                   }],
-                   "bDestroy": true,
-               });
-           }
-
-       });
-
+    
 
        function hapusUser(id) {
             Swal.fire({
