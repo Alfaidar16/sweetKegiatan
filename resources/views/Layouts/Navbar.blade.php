@@ -48,7 +48,7 @@
                                 <a href="{{ route('akun.index')}}  @if (Route::is('akun.index')) active-page-link @endif">User</a>
                             </li>
                             <li>
-                                <a href="{{ route('bidang.index')}}  @if (Route::is('bidang.index')) active-page-link @endif">Bidang</a>
+                                <a href="{{ route('bidang.index')}}  @if (Route::is('bidang.index')) active-page-link @endif">Bidangs</a>
                             </li>
                             {{-- <li>
                                 <a href="{{ route('user.index')}}">Bidang</a>
