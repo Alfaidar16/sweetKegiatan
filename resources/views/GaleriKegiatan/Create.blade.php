@@ -94,7 +94,7 @@
                      <label for="form-label">Gambar <span>(jpg,png, ukuran file 1mb)</span></label>
                      <div class="mb-3">
                        
-                        <img src="{{ asset('/templateDashboard/design/assets/images/no-image.jpg') }}" id="contoh3" alt=""
+                        <img src="{{ asset('/TemplateDashboard/design/assets/images/no-image.jpg') }}" id="contoh3" alt=""
                         class="img-fluid mb-2" width="300px">
                      
                         <input type="file" class="form-control @error('image3') is-invalid  @enderror" name="image3" id="gambar3">
@@ -116,7 +116,7 @@
                     </div>
                      <div class="m-0 mb-3">
                         <label class="form-label">Pekan</label>
-                        <select class="form-select @error('pekan') 'is-invalid'  @enderror" aria-label="Default select example" name="pekan" >
+                        <select class="form-select @error('pekan') 'is-invalid'  @enderror" aria-label="Default select example" name="pekan_id" >
                             <option selected>--</option>
                             <option value="Pekan 1">Pekan 1</option>
                             <option value="Pekan 2">Pekan 2</option>

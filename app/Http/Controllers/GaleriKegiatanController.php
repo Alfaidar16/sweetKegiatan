@@ -153,7 +153,7 @@ class GaleriKegiatanController extends Controller
             'slug'  => Str::slug($request->nama_kegiatan),
             'users_id' => Auth::user()->id,
             'hari' => date('l'),
-            'pekan_id' =>  $request->pekan,
+            'pekan_id' =>  $request->pekan_id,
             'tanggal' => date('Y-m-d'),
             'created_at' => date('Y-m-d H:i:s'),
         ]);
@@ -251,7 +251,7 @@ class GaleriKegiatanController extends Controller
             'slug'  => Str::slug($request->nama_kegiatan),
             'users_id' => Auth::user()->id,
             'hari' => date('l'),
-            'pekan_id' =>  $request->pekan,
+            'pekan_id' =>  $request->pekan_id,
             'tanggal' => date('Y-m-d'),
             'created_at' => date('Y-m-d H:i:s'),
         
