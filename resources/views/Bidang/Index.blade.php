@@ -22,7 +22,6 @@
                                 <th>Kode Unit</th>
                                 <th>Nama Unit Kerja</th>
                                 <th>Tingkatan</th>
-                             
                                 <th>Aksi</th>                             
                             </tr>
                         </thead>
@@ -70,7 +69,7 @@
             load_data();
 
             function load_data(unit = '') {
-                $('#dataUser').DataTable({
+                $('#dataBidang').DataTable({
                     "pageLength": 10,
                     "searching": true,
                     "processing": true,
@@ -105,7 +104,7 @@
                     ],
                     "bAutoWidth": false,
                     "columnDefs": [{
-                        targets: [0, 1, 2, 3, 4, 5],
+                        targets: [0, 1, 2, 3, ,4],
                         className: 'text-left'
                     }],
                     "bDestroy": true,
