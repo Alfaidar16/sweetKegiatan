@@ -34,7 +34,7 @@ class GaleriKegiatanController extends Controller
                         $file = trim($file); 
                         if ($file) {
                         
-                            $imageTags[] = '<img src="' . asset('upload/kegiatan' . $file) . '" style="max-width: 100px; max-height: 100px; margin-right: 10px;">';
+                            $imageTags[] = '<img src="' . asset('upload/kegiatan/' . $file) . '" style="max-width: 100px; max-height: 100px; margin-right: 10px;">';
                         }
                     }
                     $imageString = implode('', $imageTags);

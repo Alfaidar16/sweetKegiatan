@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LoginController extends Controller
 {
@@ -50,7 +51,8 @@ class LoginController extends Controller
            toast('success', 'Login berhasil');
            return redirect('/panel/dashboard');
         } else {
-            echo 'Invalid password.';
+           Alert::error('error', 'Username atau Password Anda Salah');
+           return redirect()->back();
         }
     }
 }
