@@ -29,6 +29,7 @@ class TarikDataController extends Controller
                 'kode_jabatan' =>  $kodeJabatan, 
                 'kode_bidang' => $kodeBidang,
                 'email' => $key->email,
+                'roles_id' => 2,
                 'password' => bcrypt($key->nipbaru),
             ];
             // Cek apakah pengguna dengan email yang sama sudah ada

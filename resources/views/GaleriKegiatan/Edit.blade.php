@@ -5,6 +5,15 @@
 
 @section('content')
 <div class="row">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     <div class="col-lg-12">
         <form action="{{ route('kegiatan.update', $kegiatan->id)}}" method="POST" enctype="multipart/form-data">
             @method('PUT')
@@ -116,16 +125,16 @@
                     </div>
                     <div class="m-0 mb-3">
                         <label class="form-label">Pekan</label>
-                        <select class="form-select @error('pekan') 'is-invalid'  @enderror" aria-label="Default select example" name="pekan" >
-                            <option selected>{{ $kegiatan->pekan }}</option>
-                            <option value="Pekan 1">Pekan 1</option>
-                            <option value="Pekan 2">Pekan 2</option>
-                            <option value="Pekan 3">Pekan 3</option>
-                            <option value="Pekan 4">Pekan 4</option>
-                          </select>
-                          @error('pekan')
-                              <strong class="text-danger invalid-feedback">{{ $message }}</strong>
-                          @enderror
+                        <select class="form-select @error('pekan') 'is-invalid'  @enderror"
+                            aria-label="Default select example" name="pekan_id">
+                            <option selected>{{ $kegiatan->pekan_id }}</option>
+                            @foreach ($pekan as $key)
+                                <option value="{{ $key->id }}">{{ $key->pekan }}</option>
+                            @endforeach
+                        </select>
+                        @error('pekan')
+                            <strong class="text-danger invalid-feedback">{{ $message }}</strong>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="form-label">Dokumen Hasil Kegiatan</label>

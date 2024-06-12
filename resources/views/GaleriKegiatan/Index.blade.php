@@ -21,7 +21,7 @@
                                 <th>No</th>
                                 <th>Dokumentasi</th>
                                 <th>Kegiatan</th>
-                                <th>Nama</th>
+                                <th>Nama Bidang</th>
                                 <th style="width: 50px;">Uraian Kegiatan</th>
                                 <th>Pekan</th>
                                 <th>Aksi</th>
@@ -66,7 +66,7 @@
                             "data": "nama_kegiatan"
                         },
                         {
-                            "data": "name"
+                            "data": "nama_unit"
                         },
                         {
                             "data": "narasi_kegiatan"

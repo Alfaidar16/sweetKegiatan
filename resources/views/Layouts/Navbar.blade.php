@@ -36,6 +36,7 @@
                         {{-- <span class="badge red">15</span> --}}
                     </a>
                 </li>
+                @if(Auth::user()->roles_id == 1) 
                 <li class="sidebar-dropdown">
                     <a href="#">
                         <i class="bi bi-person-lines-fill"></i>
@@ -56,6 +57,8 @@
                         </ul>
                     </div>
                 </li>
+
+                @endif
              
             </ul>
           

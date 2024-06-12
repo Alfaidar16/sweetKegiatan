@@ -16,9 +16,8 @@ class UsersController extends Controller
         if ($request->ajax()) {
             $user =  DB::table('users')
             ->leftJoin('ms_bidangs', 'users.kode_bidang', '=', 'ms_bidangs.kode_bidang')
-            ->leftJoin('roles', 'users.roles_id', '=', 'roles.id')
-          
-          ->select('roles.*', 'ms_bidangs.*', 'users.*')
+            ->leftJoin('roles', 'users.roles_id', '=', 'roles.id')  
+             ->select('roles.*', 'ms_bidangs.*', 'users.*')
           ->orderBy('users.created_at', 'desc')
            ->get();
             
