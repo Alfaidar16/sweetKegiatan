@@ -44,11 +44,11 @@
                     </a>
                     <div class="sidebar-submenu">
                         <ul>
-                            <li>
-                                <a href="{{ route('akun.index')}}  @if (Route::is('akun.index')) active-page-link @endif">User</a>
+                            <li class="@if (Route::is('akun.index')) active-page-link @endif">
+                                <a href="{{ route('akun.index')}}">User</a>
                             </li>
-                            <li>
-                                <a href="{{ route('bidang.index')}}  @if (Route::is('bidang.index')) active-page-link @endif">Bidang</a>
+                            <li class="@if (Route::is('bidang.index')) active-page-link @endif">
+                                <a href="{{ route('bidang.index')}}">Bidang</a>
                             </li>
                             {{-- <li>
                                 <a href="{{ route('user.index')}}">Bidang</a>

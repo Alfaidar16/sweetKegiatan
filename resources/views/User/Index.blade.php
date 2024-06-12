@@ -22,7 +22,7 @@
                                 <th>Bidang</th>
                                 <th>Nip</th>          
                                 <th>Email</th>
-                                <th>Roles</th>
+                                <th>Nama</th>
                                 <th>Aksi</th>                             
                             </tr>
                         </thead>
@@ -67,8 +67,9 @@
                             "data": "email"
                         },
                         {
-                            "data": "nama"
+                            "data": "name"
                         },
+                        
                         {
                             "data": "aksi",
                             "orderable": false,
