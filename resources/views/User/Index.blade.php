@@ -9,7 +9,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header mt-2">
-                <a href="{{ route('user.create')}}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Buat User</a>
+                <a href="{{ route('akun.create')}}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Buat User</a>
                 {{-- <a href="" class="btn btn-success"><i class="bi bi-upload"></i> Cetak</a> --}}
                 {{-- <div class="card-title">Highlight Row Column</div> --}}
             </div>
@@ -19,7 +19,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Sekretariat</th>
+                                <th>Bidang</th>
                                 <th>Nip</th>          
                                 <th>Email</th>
                                 <th>Roles</th>
@@ -50,7 +50,7 @@
                     },
                     "serverSide": true,
                     "ajax": {
-                        url: "{{ route('user.index') }}",
+                        url: "{{ route('akun.index') }}",
                     },
                     "columns": [{
                             "data": "DT_RowIndex",
@@ -58,7 +58,7 @@
                             "searchable": false
                         },
                         {
-                            "data": "unit"
+                            "data": "nama_unit"
                         },
                         {
                             "data": "nip"

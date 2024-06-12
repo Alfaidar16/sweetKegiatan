@@ -56,8 +56,8 @@
                             <h5 class="mb-5 text-center mt-3" style="color: black;">Selamat Datang</h5>
                             <div class="mb-3">
                                 <label class="form-label">Your Email</label>
-                                <input type="email" name="email" class="form-control p-2 @error('email') is-invalid @enderror" placeholder="Enter your email" required autofocus value="{{ old('email')}}" />
-                                @error('email')
+                                <input type="text" name="nip" class="form-control p-2 @error('nip') is-invalid @enderror" placeholder="Enter your nip" required autofocus value="{{ old('nip')}}" />
+                                @error('nip')
                                     <strong class="text-danger invalid-feedback">{{$message}}</strong>
                                 @enderror
                             </div>

@@ -23,9 +23,10 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('/tarikData', [\App\Http\Controllers\TarikDataController::class, 'index']);
 
  Route::get('/', [\App\Http\Controllers\Auth\LoginController::class, 'showLoginForm']);
- Route::post('/login/auth', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->name('auth.login');
+ Route::post('/login/auth', [\App\Http\Controllers\Auth\LoginController::class, 'Postlogin'])->name('auth.login');
 
  Route::prefix('panel')->middleware('auth')->group(function() {
   // Route::group(['middleware' => ['role:1|2']],function() {
@@ -44,15 +45,18 @@ Auth::routes();
         // Route::get('/generate-pdf', [GaleriKegiatanController::class, 'downloadPdf'])->name('generate.pdf');
       });
    
-      Route::prefix('users')->group(function() {
-        Route::get('', [\App\Http\Controllers\UsersController::class, 'index'])->name('user.index');
-        Route::get('/create', [\App\Http\Controllers\UsersController::class, 'create'])->name('user.create');
-        Route::post('/store', [\App\Http\Controllers\UsersController::class, 'store'])->name('user.store');
-        Route::get('/edit/{id}', [\App\Http\Controllers\UsersController::class, 'edit'])->name('user.edit');
-        Route::put('{id}/update', [\App\Http\Controllers\UsersController::class, 'update'])->name('user.update');
-        Route::post('destroy', [\App\Http\Controllers\UsersController::class, 'destroy'])->name('user.destroy');
-        });
 
+      Route::group(['prefix' => 'users'], function() {
+        Route::get('/', [\App\Http\Controllers\UsersController::class, 'index'])->name('akun.index');
+        Route::get('/create/user', [\App\Http\Controllers\UsersController::class, 'create'])->name('akun.create');
+        Route::post('/create/store', [\App\Http\Controllers\UsersController::class, 'store'])->name('akun.store');
+      });
+
+      Route::group(['prefix' => 'bidang'], function () {
+          Route::get('/bidang', [\App\Http\Controllers\BidangController::class, 'index'])->name('bidang.index');
+          Route::put('/bidang/update/{id}', [\App\Http\Controllers\BidangController::class, 'update'])->name('bidang.update');
+          
+      });  
        Route::prefix('laporan')->group(function() { 
           Route::get('', [\App\Http\Controllers\LaporanController::class, 'index'])->name('laporan.index');
           Route::get('/filter/pekan/{id}', [LaporanController::class, 'filterByPekan'])->name('filter.pekan');

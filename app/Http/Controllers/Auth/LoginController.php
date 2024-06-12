@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -31,6 +34,23 @@ class LoginController extends Controller
     protected function credentials(Request $request)
     {
         toast('login Berhasil', 'success');
-        return ['email' => $request->{$this->username()}, 'password' => $request->password];
+        return ['nip' => $request->{$this->username()}, 'password' => $request->password];
+    }
+
+
+    public function Postlogin(Request $request) {
+        // dd('tes');
+          $this->validate($request, [
+            'nip' => 'required|string',
+            'password' => 'required|string'
+          ]);
+         $user = User::where('nip', $request->nip)->first();
+          if (password_verify($request->password, $user->password)) {
+           Auth::loginUsingId($user->id);
+           toast('success', 'Login berhasil');
+           return redirect('/panel/dashboard');
+        } else {
+            echo 'Invalid password.';
+        }
     }
 }

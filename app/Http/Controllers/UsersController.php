@@ -7,44 +7,18 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB; 
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-use GuzzleHttp\Client;
+
 
 class UsersController extends Controller
 {
     public function index(Request $request) {
-        set_time_limit(300); 
-
-        $client = new Client();
-        $urlrOpd = (string) $client->get('https://epinisi.sulselprov.go.id/api/pegawai?&size=15000&unit=102241')->getBody();
-        $dataPegawai = json_decode($urlrOpd);
-
-        foreach($dataPegawai as $key) {
-            $dataPegawai[] = [
-                // 'id' => $key->id,
-                'nip' => $key->nipbaru,
-                'name' => $key->nama,
-                'jabatan' => $key->NJab,
-                'pangkat' => $key->NPang,
-                'kodejabatan' => $key->RincUnit1  . substr($key->RincUnit3, 0,2). $key->RincUnit2,
-                // 'golongan' => $key->golongan,
-                'unit' => $key->UnitKerja,
-                'email' => $key->email,
-                'password' => bcrypt($key->email),
-                // 'roles_id' => 2,
-            ];
-            // Cek apakah pengguna dengan email yang sama sudah ada
-         $existingUser = User::where('email', $dataPegawai['email'] ?? null)->first();
-
-            if (!$existingUser) {
-                // Jika pengguna tidak ada, buat pengguna baru
-                User::create($dataPegawai);
-            }
-      }
-
+      
         if ($request->ajax()) {
             $user =  DB::table('users')
+            ->leftJoin('ms_bidangs', 'users.kode_bidang', '=', 'ms_bidangs.kode_bidang')
             ->leftJoin('roles', 'users.roles_id', '=', 'roles.id')
-          ->select('roles.*', 'users.*')
+          
+          ->select('roles.*', 'ms_bidangs.*', 'users.*')
           ->orderBy('users.created_at', 'desc')
            ->get();
             
@@ -74,7 +48,7 @@ class UsersController extends Controller
 
         $with = [
             'title' => 'Users',
-            'data' => $dataPegawai
+            // 'data' => $dataPegawai
         ];
         return view('User.Index')->with($with);
     }

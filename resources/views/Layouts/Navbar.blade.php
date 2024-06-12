@@ -36,7 +36,7 @@
                         {{-- <span class="badge red">15</span> --}}
                     </a>
                 </li>
-                <li class="sidebar-dropdown @if (Route::is('user.index')) active-page-link @endif">
+                <li class="sidebar-dropdown">
                     <a href="#">
                         <i class="bi bi-person-lines-fill"></i>
                         <span class="menu-text">Master Data</span>
@@ -45,11 +45,14 @@
                     <div class="sidebar-submenu">
                         <ul>
                             <li>
-                                <a href="{{ route('user.index')}}">User</a>
+                                <a href="{{ route('akun.index')}}  @if (Route::is('akun.index')) active-page-link @endif">User</a>
                             </li>
                             <li>
-                                <a href="{{ route('user.index')}}">Bidang</a>
+                                <a href="{{ route('bidang.index')}}  @if (Route::is('bidang.index')) active-page-link @endif">Bidang</a>
                             </li>
+                            {{-- <li>
+                                <a href="{{ route('user.index')}}">Bidang</a>
+                            </li> --}}
                         </ul>
                     </div>
                 </li>
