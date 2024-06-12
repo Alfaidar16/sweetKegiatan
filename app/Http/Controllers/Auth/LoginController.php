@@ -40,7 +40,6 @@ class LoginController extends Controller
 
 
     public function Postlogin(Request $request) {
-        // dd('tes');
           $this->validate($request, [
             'nip' => 'required|string',
             'password' => 'required|string'

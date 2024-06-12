@@ -23,6 +23,7 @@
                                 <th>Nip</th>          
                                 <th>Email</th>
                                 <th>Nama</th>
+                                {{-- <th>Roles</th> --}}
                                 <th>Aksi</th>                             
                             </tr>
                         </thead>

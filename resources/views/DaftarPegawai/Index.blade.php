@@ -9,31 +9,42 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header mt-2">
-                <a href="{{ route('akun.create')}}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Sekretariat</a>
+                <a href="{{ route('akun.create')}}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Buat User</a>
                 {{-- <a href="" class="btn btn-success"><i class="bi bi-upload"></i> Cetak</a> --}}
                 {{-- <div class="card-title">Highlight Row Column</div> --}}
             </div>
             <div class="card-body mt-5">
                 <div class="table-responsive">
-                    <table id="dataBidang" class="table custom-table">
+                    <table id="dataPegawai" class="table custom-table">
                         <thead>
-                            <tr style="font-size: 10px;">
+                            <tr>
                                 <th>No</th>
-                                <th>NIP</th>
+                                <th>Bidang</th>
+                                <th>Nip</th>          
                                 <th>Nama</th>
-                                <th>Tingkatan</th>
+                                {{-- <th>Roles</th> --}}
                                 <th>Aksi</th>                             
                             </tr>
                         </thead>
-                      
+                        <tbody>
+                            @foreach ($datas as $key )
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $key->nama_unit }}</td>
+                                    <td>{{ $key->nip }}</td>
+                                    <td>{{ $key->name }}</td>
+                                    <td>
+                                        <a href="">Detail</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-       {{-- @include('Bidang.Edit') --}}
 </div>
-  
 @endsection
 @section('js')
 <script> 
@@ -41,45 +52,11 @@
             load_data();
 
             function load_data(unit = '') {
-                $('#dataBidang').DataTable({
+                $('#dataPegawai').DataTable({
                     "pageLength": 10,
                     "searching": true,
                     "processing": true,
-                    "serverside": true,
-                    "scrollX": true,
-                    "language": {
-                        "processing": 'Memuat...'
-                    },
-                    "serverSide": true,
-                    "ajax": {
-                        url: "{{ route('bidang.index') }}",
-                    },
-                    "columns": [{
-                            "data": "DT_RowIndex",
-                            "orderable": false,
-                            "searchable": false
-                        },
-                        {
-                            "data": "kode_bidang"
-                        },
-                        {
-                            "data": "nama_unit"
-                        },
-                        {
-                            "data": "tingkatan"
-                        },
-                        {
-                            "data": "aksi",
-                            "orderable": false,
-                            "searchable": false
-                        },
-                    ],
-                    "bAutoWidth": false,
-                    "columnDefs": [{
-                        targets: [0, 1, 2, 3, ,4],
-                        className: 'text-left'
-                    }],
-                    "bDestroy": true,
+                   
                 });
             }
 

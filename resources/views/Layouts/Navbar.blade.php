@@ -19,37 +19,61 @@
                 <li class="@if (Route::is('dashboard')) active-page-link @endif">
                     <a href="{{ route('dashboard')}}">
                         <i class="bi bi-house"></i>
-                        <span class="menu-text">Dashboard</span>
+                        <span class="menu-text text-white">Dashboard</span>
                     </a>
                 </li>
                {{-- @role('user') --}}
                 <li class="@if (Route::is('kegiatan', 'kegiatan.create', 'kegiatan.edit')) active-page-link @endif">
                     <a href="{{ route('kegiatan')}}">
                         <i class="bi bi-text-right"></i>
-                        <span class="menu-text">Kegiatan</span>
+                        <span class="menu-text text-white">Kegiatan</span>
                     </a>
                 </li>
-                <li class="sidebar-dropdown @if (Route::is('laporan.index')) active-page-link @endif">
+                <li class="@if (Route::is('laporan.index')) active-page-link @endif">
                     <a href="{{ route('laporan.index') }}">
                         <i class="bi bi-window"></i>
-                        <span class="menu-text">Cetak Laporan</span>
+                        <span class="menu-text text-white">Cetak Laporan</span>
                         {{-- <span class="badge red">15</span> --}}
                     </a>
+                </li>
+
+                <li class="sidebar-dropdown">
+                    <a href="#">
+                        <i class="bi bi-person-lines-fill"></i>
+                        <span class="menu-text text-white"> Daftar Pegawai</span>
+                        {{-- <span class="badge red">15</span> --}}
+                    </a>
+                    <div class="sidebar-submenu">
+                        @php
+                              $dinas =  DB::table('ms_bidangs')->orderBy('created_at', 'DESC')->get();
+                        @endphp
+                        <ul>
+                             @foreach ($dinas as $key )
+                             <li class="" style="margin-right: 15px;">
+                                <a class="text-white" href="{{ route('daftar.pegawai', $key->kode_bidang) }}">{{ $key->nama_unit }}</a>
+                            </li>
+                             @endforeach
+                          
+                            {{-- <li>
+                                <a href="{{ route('user.index')}}">Bidang</a>
+                            </li> --}}
+                        </ul>
+                    </div>
                 </li>
                 @if(Auth::user()->roles_id == 1) 
                 <li class="sidebar-dropdown">
                     <a href="#">
                         <i class="bi bi-person-lines-fill"></i>
-                        <span class="menu-text">Master Data</span>
+                        <span class="menu-text text-white">Master Data</span>
                         {{-- <span class="badge red">15</span> --}}
                     </a>
                     <div class="sidebar-submenu">
                         <ul>
                             <li class="@if (Route::is('akun.index')) active-page-link @endif">
-                                <a href="{{ route('akun.index')}}">User</a>
+                                <a class="text-white" href="{{ route('akun.index')}}">User</a>
                             </li>
                             <li class="@if (Route::is('bidang.index')) active-page-link @endif">
-                                <a href="{{ route('bidang.index')}}">Bidang</a>
+                                <a class="text-white" href="{{ route('bidang.index')}}">Bidang</a>
                             </li>
                             {{-- <li>
                                 <a href="{{ route('user.index')}}">Bidang</a>
@@ -57,6 +81,8 @@
                         </ul>
                     </div>
                 </li>
+
+               
 
                 @endif
              

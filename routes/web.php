@@ -52,9 +52,13 @@ Route::prefix('panel')->middleware('auth')->group(function () {
       Route::put('/bidang/update/{id}', [\App\Http\Controllers\BidangController::class, 'update'])->name('bidang.update');
     });
   });
+  Route::get('daftar/pegawai/{kode_bidang}', [\App\Http\Controllers\DaftarPegawaiController::class, 'index'])->name('daftar.pegawai');
   Route::prefix('laporan')->group(function () {
     Route::get('', [\App\Http\Controllers\LaporanController::class, 'index'])->name('laporan.index');
     Route::get('/filter/pekan/{id}', [LaporanController::class, 'filterByPekan'])->name('filter.pekan');
+
+
+ 
     // Route
     // cetak Dokumen
     Route::get('/generate-pdf', [LaporanController::class, 'downloadPdf'])->name('generate.pdf');

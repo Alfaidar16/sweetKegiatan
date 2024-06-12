@@ -22,11 +22,11 @@ class UsersController extends Controller
            ->get();
             
               return Datatables::of($user)
-                ->addIndexColumn()->editColumn('nama', function ($user) {
-                    if ($user->nama == null) {
+                ->addIndexColumn()->editColumn('name', function ($user) {
+                    if ($user->name == null) {
                         return '--';
                     } else {
-                        return $user->nama;
+                        return $user->name;
                     }
                 })
                 
