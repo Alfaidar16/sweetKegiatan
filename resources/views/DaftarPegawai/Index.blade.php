@@ -9,7 +9,8 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header mt-2">
-                <a href="{{ route('akun.create')}}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Buat User</a>
+                 <button class="btn btn-primary p-3">{{ $jBidang->nama_unit }}</button>
+                {{-- <a href="{{ route('akun.create')}}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Buat User</a> --}}
                 {{-- <a href="" class="btn btn-success"><i class="bi bi-upload"></i> Cetak</a> --}}
                 {{-- <div class="card-title">Highlight Row Column</div> --}}
             </div>
@@ -19,10 +20,9 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Bidang</th>
-                                <th>Nip</th>          
                                 <th>Nama</th>
-                                {{-- <th>Roles</th> --}}
+                                <th>Bulan</th>          
+                                <th>Informasi</th>
                                 <th>Aksi</th>                             
                             </tr>
                         </thead>
@@ -30,11 +30,11 @@
                             @foreach ($datas as $key )
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $key->nama_unit }}</td>
-                                    <td>{{ $key->nip }}</td>
                                     <td>{{ $key->name }}</td>
+                                    <td>--</td>
+                                    <td>--</td>
                                     <td>
-                                        <a href="">Detail</a>
+                                        <a href="#" class="btn btn-warning">Detail</a>
                                     </td>
                                 </tr>
                             @endforeach

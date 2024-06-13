@@ -41,6 +41,8 @@ Route::prefix('panel')->middleware('auth')->group(function () {
     Route::post('destroy', [\App\Http\Controllers\GaleriKegiatanController::class, 'destroy'])->name('kegiatan.destroy');
     // Route::get('/generate-pdf', [GaleriKegiatanController::class, 'downloadPdf'])->name('generate.pdf');
   });
+
+  
   Route::middleware(['auth', 'roles:1'])->group(function () {
     Route::group(['prefix' => 'users'], function () {
       Route::get('/', [\App\Http\Controllers\UsersController::class, 'index'])->name('akun.index');
@@ -49,6 +51,8 @@ Route::prefix('panel')->middleware('auth')->group(function () {
       Route::post('/create/store', [\App\Http\Controllers\UsersController::class, 'store'])->name('akun.store');
       Route::put('/update/{id}', [\App\Http\Controllers\UsersController::class, 'update'])->name('akun.update');
     });
+
+
     Route::group(['prefix' => 'bidang'], function () {
       Route::get('/', [\App\Http\Controllers\BidangController::class, 'index'])->name('bidang.index');
       Route::get('/create', [\App\Http\Controllers\BidangController::class, 'create'])->name('bidang.create');
@@ -57,7 +61,11 @@ Route::prefix('panel')->middleware('auth')->group(function () {
       Route::put('/update/{id}', [\App\Http\Controllers\BidangController::class, 'update'])->name('bidang.update');
       Route::post('/bidang/destroy', [\App\Http\Controllers\BidangController::class, 'destroy'])->name('bidang.destroy');
     });
+
+
   });
+
+
   Route::get('daftar/pegawai/{kode_bidang}', [\App\Http\Controllers\DaftarPegawaiController::class, 'index'])->name('daftar.bidang');
   Route::prefix('laporan')->group(function () {
     Route::get('', [\App\Http\Controllers\LaporanController::class, 'index'])->name('laporan.index');

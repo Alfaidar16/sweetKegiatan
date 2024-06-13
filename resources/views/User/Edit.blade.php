@@ -6,7 +6,7 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
-        <form action="#" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('akun.update', $user->id) }}" method="POST" enctype="multipart/form-data">
             @method('PUT')
             @csrf
         <div class="card">
@@ -17,7 +17,7 @@
                 <div class="m-0 mb-3">
                     <label for="">Bidang</label>
                     <select class="form-control p-3" name="kode_bidang" required id="kodebidang">
-                        {{-- <option value="" selected> {{ $bidang->kode_bidang }}</option> --}}
+                        {{-- <option value="" selected> {{ $user->nama_unit }}</option> --}}
                         @foreach ($bidang as $key )
                         <option value="{{ $key->kode_bidang}}">{{$key->nama_unit}}</option>
                         @endforeach

@@ -10,36 +10,16 @@ class DaftarPegawaiController extends Controller
 {
     public function index(Request $request, $kode_bidang) {
       
+        $titleBidang = DB::table('ms_bidangs')->where('kode_bidang', $kode_bidang)->first();
         $dataPegawai = DB::table('ms_bidangs')
         ->leftJoin('users', 'ms_bidangs.kode_bidang', '=', 'users.kode_bidang')
         ->where('ms_bidangs.kode_bidang', $kode_bidang)
         ->select('ms_bidangs.*', 'users.*')
         ->get();
-        // if ($request->ajax()) {
-        //     $dataPegawai = DB::table('ms_bidangs')
-        //     ->leftJoin('users', 'ms_bidangs.kode_bidang', '=', 'users.kode_bidang')
-        //     ->where('ms_bidangs.kode_bidang', $kode_bidang)
-        //     ->select('ms_bidangs.*', 'users.*')
-        //     ->get();
-        //       return Datatables::of($dataPegawai)
-        //         ->addIndexColumn()
-        //         ->editColumn('aksi', function ($dataPegawai) {
-        //                $actionButton = '
-        //               <a href="#" class="btn waves-effect waves-light btn-success btn-sm">
-        //                     <i class="bi bi-pencil-square"></i>
-        //                </a>
-        //                 <button class="btn waves-effect waves-light btn-danger btn-sm" onclick="hapusUser(&quot;' . $dataPegawai->id . '&quot;)">
-        //                     <i class="bi bi-trash"></i>
-        //                </button>';
-        //                return $actionButton;
-                     
-        //            })
-        //            ->escapeColumns([])
-        //            ->make(true);
-        //    }
         $with = [ 
             'title' => 'Daftar Pegawai',
-            'datas' => $dataPegawai
+            'datas' => $dataPegawai,
+            'jBidang' => $titleBidang
         ];
         return view('DaftarPegawai.Index')->with($with);
     }
