@@ -32,48 +32,7 @@
         </div>
     </div>
        {{-- @include('Bidang.Edit') --}}
-       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Edit Bidang</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-             <form action="" method="Post">
-                @method('PUT')
-                @csrf
-                <div class="modal-body">
-                    <div class="col-md-12">
-                        <div class="m-0 mb-3">
-                            <label class="form-label">Nama Bidang</label>
-                            <input type="text" class="form-control p-2 pb-3 @error('nama_unit') is-invalid @enderror" name="nama_unit" required value="{{ old('nama_unit')}}"/>
-                            @error('nama_unit')
-                            <div class="invalid-feedback">
-                                {{ $message}}
-                            </div>
-                        @enderror
-                        </div>
-                       </div>
-                        <div class="m-0 mb-3">
-                            <label for="">Kode Bidang</label>
-                            <br>
-                            <span class="text-danger">contoh 102241XX00</span>
-                            <input type="text" class="form-control p-2 pb-3 @error('kode_bidang') is-invalid @enderror" name="kode_bidang" required value="{{ old('kode_bidang')}}" placeholder="contoh: 102241XX00 "/>
-                            @error('kode_bidang')
-                            <div class="invalid-feedback">
-                                {{ $message}}
-                            </div>
-                        @enderror
-                         </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                  </div>
-             </form>
-          </div>
-        </div>
-      </div>
+  
 </div>
   
 @endsection
@@ -126,14 +85,22 @@
             }
 
         });
+
+    //    function editBidang($id, $nama_unit, $kode_bidang) {
+    //             $('#exampleModal').modal('show');
+    //             $('#id').val($id);
+    //             $('#namaUnit').val($nama_unit);
+    //             $('#kodeBidang').val($kode_bidang);
+            
+    //    } 
 </script>
-{{-- <script>
+<script>
     
 
-       function hapusUser(id) {
+       function hapusBidang(id) {
             Swal.fire({
                 title: 'Apakah anda yakin?',
-                text: "Anda akan menghapus Data User",
+                text: "Anda akan menghapus Data Bidang",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -149,7 +116,7 @@
         function hapus(id) {
             var _token = "{{ csrf_token() }}";
             $.ajax({
-                url: "{{ route('user.destroy') }}",
+                url: "{{ route('bidang.destroy') }}",
                 method: "POST",
                 data: {
                     _token: _token,
@@ -179,5 +146,5 @@
         }
 
 
-</script> --}}
+</script>
 @endsection

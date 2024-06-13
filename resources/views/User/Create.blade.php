@@ -5,8 +5,17 @@
 
 @section('content')
 <div class="row">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     <div class="col-lg-12">
-        <form action="{{ route('user.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('akun.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
         <div class="card">
             <div class="card-header bg-primary">
@@ -24,6 +33,15 @@
                     @enderror
                     </div>
                    </div>
+                   <div class="m-0 mb-3">
+                    <label class="form-label">NIP</label>
+                    <input type="text" class="form-control p-2 pb-3 @error('nip') is-invalid @enderror" name="nip" required value="{{ old('nip')}}"/>
+                    @error('nip')
+                    <div class="invalid-feedback">
+                        {{ $message}}
+                    </div>
+                @enderror
+                </div>
                     <div class="m-0 mb-3">
                         <label for="">Email</label>
                         <input type="text" class="form-control p-2 pb-3 @error('email') is-invalid @enderror" name="email" required value="{{ old('email')}}"/>
@@ -43,11 +61,20 @@
                     @enderror
                     </div>
                         <div class="m-0 mb-3">
+                        <label for="">Bidang</label>
+                        <select class="form-control p-3" name="kode_bidang" required id="kodebidang">
+                            <option value=""></option>
+                            @foreach ($bidang as $key )
+                            <option value="{{ $key->kode_bidang}}">{{$key->nama_unit}}</option>
+                            @endforeach
+                          </select>
+                     </div>
+                     <div class="m-0 mb-3">
                         <label for="">Roles</label>
                         <select class="form-control p-3" name="roles_id" required id="roles">
                             <option value=""></option>
                             @foreach ($role as $key )
-                            <option value="{{ $key->id}}">{{$key->name}}</option>
+                            <option value="{{ $key->id}}">{{$key->nama}}</option>
                             @endforeach
                           </select>
                      </div>
@@ -61,6 +88,10 @@
 @section('js')
 <script>
   $(document).ready(function() {
+    $('#kodebidang').select2();
+});
+
+$(document).ready(function() {
     $('#roles').select2();
 });
 </script>

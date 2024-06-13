@@ -21,10 +21,11 @@ class BidangController extends Controller
                 return Datatables::of($bidang)->addIndexColumn()
                 ->editColumn('aksi', function ($bidang) {
                     $actionButton = '
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <a href="' . route('bidang.edit', $bidang->id) . '" class="btn waves-effect waves-light btn-success btn-sm">
                     <i class="bi bi-pencil-square"></i>
+               </a>
                   </button>
-                     <button class="btn waves-effect waves-light btn-danger btn-sm" onclick="hapusUser(&quot;' . $bidang->id . '&quot;)">
+                     <button class="btn waves-effect waves-light btn-danger btn-sm" onclick="hapusBidang(&quot;' . $bidang->id . '&quot;)">
                          <i class="bi bi-trash"></i>
                     </button>';
                     return $actionButton; 
@@ -33,8 +34,6 @@ class BidangController extends Controller
             }
         $with = [
             'title' => 'Data Bidang',
-           
-          
         ]; 
         return view('Bidang.Index')->with($with);
     }
@@ -71,10 +70,19 @@ class BidangController extends Controller
         return redirect()->route('bidang.index');
     }
 
+    public function edit($id) {
+        $bidang = DB::table('ms_bidangs')->where('id', $id)->first();
+        $with = [
+            'title' => 'Data Bidang',
+            'bidang' => $bidang
+        ];
+        return view('Bidang.Edit')->with($with);
+    }
+
     public function update(Request $request, $id) {
         $this->validate($request, [
             'nama_unit' =>'required|unique:ms_bidangs,nama_unit',
-            'kode_bidang' =>'required|min:10|max:10|unique:ms_bidangs,kode_bidang'
+            'kode_bidang' =>'required|min:10|max:10|'
         ], [
             'nama_unit.required' => 'Nama Bidang Wajib Di Isi',
             'kode_bidang.required' => 'Kode Bidang Wajib Di Isi',
@@ -83,13 +91,30 @@ class BidangController extends Controller
             'kode_bidang.min' => 'Kode Bidang Minimal 10 Karakter',
             'kode_bidang.max' => 'Kode Bidang Maksimal 10 Karakter'
         ]);
+      
+        // $cek =  [
+        //     'nama_unit' => $request->nama_unit,
+        //     'kode_bidang' => $request->kode_bidang,
+        //     'tingkatan' => 'Sub Unit Kerja',
+        //     'created_at' => date('Y-m-d H:i:s'),
+        // ];
+
+        // dd($cek);
+         
         DB::table('ms_bidangs')->where('id', $id)->update([
             'nama_unit' => $request->nama_unit,
             'kode_bidang' => $request->kode_bidang,
             'tingkatan' => 'Sub Unit Kerja',
-            'updated_at' => date('Y-m-d H:i:s'),
+            'created_at' => date('Y-m-d H:i:s'),
             ]);
             toast('success', 'Data Berhasil DiUpdate');
             return redirect()->route('bidang.index');
+    }
+
+    public function destroy(Request $request) {
+        $id = $request->id;
+        DB::table('ms_bidangs')->where('id', $id)->delete();
+        toast('success', 'Data Berhasil DiHapus');
+        return redirect()->route('bidang.index');
     }
 }

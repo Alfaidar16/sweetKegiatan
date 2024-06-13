@@ -45,13 +45,17 @@ Route::prefix('panel')->middleware('auth')->group(function () {
     Route::group(['prefix' => 'users'], function () {
       Route::get('/', [\App\Http\Controllers\UsersController::class, 'index'])->name('akun.index');
       Route::get('/create/user', [\App\Http\Controllers\UsersController::class, 'create'])->name('akun.create');
+      Route::get('edit/{id}', [\App\Http\Controllers\UsersController::class, 'edit'])->name('akun.edit');
       Route::post('/create/store', [\App\Http\Controllers\UsersController::class, 'store'])->name('akun.store');
-         });
+      Route::put('/update/{id}', [\App\Http\Controllers\UsersController::class, 'update'])->name('akun.update');
+    });
     Route::group(['prefix' => 'bidang'], function () {
-      Route::get('/bidang', [\App\Http\Controllers\BidangController::class, 'index'])->name('bidang.index');
+      Route::get('/', [\App\Http\Controllers\BidangController::class, 'index'])->name('bidang.index');
       Route::get('/create', [\App\Http\Controllers\BidangController::class, 'create'])->name('bidang.create');
+      Route::get('/edit/{id}', [\App\Http\Controllers\BidangController::class, 'edit'])->name('bidang.edit');
       Route::post('/store', [\App\Http\Controllers\BidangController::class, 'store'])->name('bidang.store');
-      Route::put('/bidang/update/{id}', [\App\Http\Controllers\BidangController::class, 'update'])->name('bidang.update');
+      Route::put('/update/{id}', [\App\Http\Controllers\BidangController::class, 'update'])->name('bidang.update');
+      Route::post('/bidang/destroy', [\App\Http\Controllers\BidangController::class, 'destroy'])->name('bidang.destroy');
     });
   });
   Route::get('daftar/pegawai/{kode_bidang}', [\App\Http\Controllers\DaftarPegawaiController::class, 'index'])->name('daftar.bidang');
@@ -60,7 +64,7 @@ Route::prefix('panel')->middleware('auth')->group(function () {
     Route::get('/filter/pekan/{id}', [LaporanController::class, 'filterByPekan'])->name('filter.pekan');
 
 
- 
+
     // Route
     // cetak Dokumen
     Route::get('/generate-pdf', [LaporanController::class, 'downloadPdf'])->name('generate.pdf');
