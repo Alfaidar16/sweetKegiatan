@@ -11,13 +11,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta property="og:locale" content="en_US" />
 		<meta property="og:type" content="article" />
-		<link rel="shortcut icon" href="{{ asset('/TemplateLogin/logosulsel.png') }}" />
+		<link rel="shortcut icon" href="/logosulsel.png" />
 		<!--begin::Fonts(mandatory for all pages)-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 		<!--end::Fonts-->
 		<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-		<link href="{{ asset('/TemplateLogin/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('/TemplateLogin/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+		<link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
 		<script>// Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }</script>
 	</head>
@@ -30,106 +30,134 @@
 		<!--begin::Root-->
         
 		<div class="d-flex flex-column flex-root" id="kt_app_root">
+			<!--begin::Authentication - Sign-up -->
 			<div class="d-flex flex-column flex-lg-row flex-column-fluid bghp">
+				<!--begin::Logo-->
 				<a href="index.html" class="d-block d-lg-none mx-auto py-20">
-					<img alt="Logo" src="{{ asset('/TemplateLogin/lgoosweet.png') }}" class="theme-light-show h-100px" />
-					<img alt="Logo" src="{{ asset('/TemplateLogin/assets/media/logos/default-dark.svg') }}" class="theme-dark-show h-25px" />
+					<img alt="Logo" src="lgoosweet.png" class="theme-light-show h-100px" />
+					<img alt="Logo" src="/assets/media/logos/default-dark.svg" class="theme-dark-show h-25px" />
 				</a>
-			
+				<!--end::Logo-->
+				<!--begin::Aside-->
 				<div class="d-flex flex-column flex-column-fluid flex-center w-lg-50 p-10 bg1"  >
-
+					<!--begin::Wrapper-->
 					<div class="d-flex  flex-column-fluid flex-column w-100 mw-450px">
-						
+						<!--begin::Header-->
 						<div class="d-flex flex-stack py-2 hilang">
-							
+							<!--begin::Back link-->
 							<div class="me-2 hiddenbtn pt-15 mb-15">
 								<a href="#" class="btn btn-icon bg-light rounded-circle">
 									<i class="ki-outline ki-black-left fs-2 text-gray-800"></i>
 								</a>
 							</div>
-						
+							<!--end::Back link-->
+							<!--begin::Sign Up link-->
 							<div class="m-0">
 								
 							</div>
-						
+							<!--end::Sign Up link=-->
 						</div>
-					
+						<!--end::Header-->
+
+						<!--begin::Body-->
                         <div class="text-start gambar1">
-                            <img src="{{ asset('/TemplateLogin/lgoosweet.png') }}" alt="" style="width: 60%;">
+                            <img src="/lgoosweet.png" alt="" style="width: 60%;">
                         </div>
 						<div class="py-20">
-							
-							<form class="form w-100"   action="{{ route('auth.login') }}" method="POST">
-                                @csrf
-							
+							<!--begin::Form-->
+							<form class="form w-100" novalidate="novalidate" id="kt_sign_up_form" data-kt-redirect-url="authentication/layouts/fancy/sign-in.html" action="#">
+								<!--begin::Heading-->
 								<div class="text-start mb-4">
-								
+									<!--begin::Title-->
 									<h1 class="text-gray-1000 mb-3 fs-3x" data-kt-translate="sign-up-title">Selamat Datang</h1>
-								
+									<!--end::Title-->
+									<!--begin::Text-->
 									<div class="text-gray-600 fw-semibold fs-4" data-kt-translate="general-desc"></div>
-									
+									<!--end::Link-->
 								</div>
-							
+								<!--end::Heading-->
+
+
+								<!--begin::Input group-->
 								<div class="row fv-row mb-7">
 									
 									
 								</div>
-								
+								<!--end::Input group-->
+								<!--begin::Input group-->
 								<div class="fv-row mb-10">
-									<input class="form-control form-control-lg form-control-solid" type="text" placeholder="Masukkan NIP..." name="nip" autocomplete="off" data-kt-translate="sign-up-input-email" />
+									<input class="form-control form-control-lg form-control-solid" type="NIP" placeholder="Masukkan NIP..." name="email" autocomplete="off" data-kt-translate="sign-up-input-email" />
 								</div>
-							
+								<!--end::Input group-->
+								<!--begin::Input group-->
 								<div class="fv-row mb-10" data-kt-password-meter="true">
+									<!--begin::Wrapper-->
 									<div class="mb-1">
+										<!--begin::Input wrapper-->
 										<div class="position-relative mb-3">
-											<input class="form-control form-control-lg form-control-solid" type="password" placeholder="Masukkan Password..." name="password" autocomplete="off" data-kt-translate="sign-up-input-password" />
+											<input class="form-control form-control-lg form-control-solid" type="password" placeholder="Masukkan Password..." name="Masukkan Password..." autocomplete="off" data-kt-translate="sign-up-input-password" />
 											<span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
 												<i class="ki-outline ki-eye-slash fs-2"></i>
 												<i class="ki-outline ki-eye fs-2 d-none"></i>
 											</span>
 										</div>
-										
+										<!--end::Input wrapper-->
 										
 									</div>
-								
+									<!--end::Wrapper-->
+									
+									
+									
 								</div>
-							
+								<!--end::Input group=-->
+								
+								<!--begin::Actions-->
 								<div class="d-flex flex-stack">
-									
-									<button type="submit"  class="btn btn-primary" data-kt-translate="sign-up-submit">
-										
+									<!--begin::Submit-->
+									<button id="kt_sign_up_submit" class="btn btn-primary" data-kt-translate="sign-up-submit">
+										<!--begin::Indicator label-->
 										<span class="indicator-label">Masuk</span>
-									
+										<!--end::Indicator label-->
+										<!--begin::Indicator progress-->
 										<span class="indicator-progress">Please wait... 
 										<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-									
+										<!--end::Indicator progress-->
 									</button>
-								
+									<!--end::Submit-->
+									
 								</div>
+								<!--end::Actions-->
 							</form>
+							<!--end::Form-->
 						</div>
+						<!--end::Body-->
+						<!--begin::Footer-->
 						<div class="m-0">
 							
 						</div>
-					
+						<!--end::Footer-->
 					</div>
-					
+					<!--end::Wrapper-->
 				</div>
-			
-				<div class="d-none d-lg-flex flex-lg-row-fluid w-50 bgi-size-cover bgi-position-y-center bgi-position-x-start bgi-no-repeat" style="background-image: url(/TemplateLogin/bg1ok.png)"></div>
-			
+				<!--end::Aside-->
+				<!--begin::Body-->
+				<div class="d-none d-lg-flex flex-lg-row-fluid w-50 bgi-size-cover bgi-position-y-center bgi-position-x-start bgi-no-repeat" style="background-image: url(/bg1ok.png)"></div>
+				<!--begin::Body-->
 			</div>
-		
+			<!--end::Authentication - Sign-up-->
 		</div>
-	
+		<!--end::Root-->
+		<!--begin::Javascript-->
 		<script>var hostUrl = "assets/";</script>
-	
-		<script src="{{ asset('/TemplateLogin/assets/plugins/global/plugins.bundle.js') }}"></script>
-		<script src="{{ asset('/TemplateLogin/assets/js/scripts.bundle.js') }}"></script>
-		
-		<script src="{{ asset('/TemplateLogin/assets/js/custom/authentication/sign-up/general.js') }}"></script>
-		<script src="{{ asset('/TemplateLogin/assets/js/custom/authentication/sign-in/i18n.js') }}"></script>
-	
+		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
+		<script src="assets/plugins/global/plugins.bundle.js"></script>
+		<script src="assets/js/scripts.bundle.js"></script>
+		<!--end::Global Javascript Bundle-->
+		<!--begin::Custom Javascript(used for this page only)-->
+		<script src="assets/js/custom/authentication/sign-up/general.js"></script>
+		<script src="assets/js/custom/authentication/sign-in/i18n.js"></script>
+		<!--end::Custom Javascript-->
+		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->
 </html>
