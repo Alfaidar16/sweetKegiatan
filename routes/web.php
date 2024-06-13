@@ -49,10 +49,12 @@ Route::prefix('panel')->middleware('auth')->group(function () {
          });
     Route::group(['prefix' => 'bidang'], function () {
       Route::get('/bidang', [\App\Http\Controllers\BidangController::class, 'index'])->name('bidang.index');
+      Route::get('/create', [\App\Http\Controllers\BidangController::class, 'create'])->name('bidang.create');
+      Route::post('/store', [\App\Http\Controllers\BidangController::class, 'store'])->name('bidang.store');
       Route::put('/bidang/update/{id}', [\App\Http\Controllers\BidangController::class, 'update'])->name('bidang.update');
     });
   });
-  Route::get('daftar/pegawai/{kode_bidang}', [\App\Http\Controllers\DaftarPegawaiController::class, 'index'])->name('daftar.pegawai');
+  Route::get('daftar/pegawai/{kode_bidang}', [\App\Http\Controllers\DaftarPegawaiController::class, 'index'])->name('daftar.bidang');
   Route::prefix('laporan')->group(function () {
     Route::get('', [\App\Http\Controllers\LaporanController::class, 'index'])->name('laporan.index');
     Route::get('/filter/pekan/{id}', [LaporanController::class, 'filterByPekan'])->name('filter.pekan');

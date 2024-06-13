@@ -9,7 +9,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header mt-2">
-                <a href="{{ route('akun.create')}}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Sekretariat</a>
+                <a href="{{ route('bidang.create')}}" class="btn btn-primary"><i class="bi bi-plus-lg"></i>Tambah Bidang</a>
                 {{-- <a href="" class="btn btn-success"><i class="bi bi-upload"></i> Cetak</a> --}}
                 {{-- <div class="card-title">Highlight Row Column</div> --}}
             </div>
@@ -19,7 +19,7 @@
                         <thead>
                             <tr style="font-size: 10px;">
                                 <th>No</th>
-                                <th>NIP</th>
+                                <th>Unit Kerja</th>
                                 <th>Nama</th>
                                 <th>Tingkatan</th>
                                 <th>Aksi</th>                             
@@ -32,6 +32,48 @@
         </div>
     </div>
        {{-- @include('Bidang.Edit') --}}
+       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit Bidang</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+             <form action="" method="Post">
+                @method('PUT')
+                @csrf
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div class="m-0 mb-3">
+                            <label class="form-label">Nama Bidang</label>
+                            <input type="text" class="form-control p-2 pb-3 @error('nama_unit') is-invalid @enderror" name="nama_unit" required value="{{ old('nama_unit')}}"/>
+                            @error('nama_unit')
+                            <div class="invalid-feedback">
+                                {{ $message}}
+                            </div>
+                        @enderror
+                        </div>
+                       </div>
+                        <div class="m-0 mb-3">
+                            <label for="">Kode Bidang</label>
+                            <br>
+                            <span class="text-danger">contoh 102241XX00</span>
+                            <input type="text" class="form-control p-2 pb-3 @error('kode_bidang') is-invalid @enderror" name="kode_bidang" required value="{{ old('kode_bidang')}}" placeholder="contoh: 102241XX00 "/>
+                            @error('kode_bidang')
+                            <div class="invalid-feedback">
+                                {{ $message}}
+                            </div>
+                        @enderror
+                         </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+             </form>
+          </div>
+        </div>
+      </div>
 </div>
   
 @endsection
