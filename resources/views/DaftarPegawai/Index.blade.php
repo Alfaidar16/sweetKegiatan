@@ -9,7 +9,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header mt-2">
-                 <button class="btn btn-primary p-3">{{ $jBidang->nama_unit }}</button>
+                 <button class="btn btn-primary p-2">{{ $jBidang->nama_unit }}</button>
                 {{-- <a href="{{ route('akun.create')}}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Buat User</a> --}}
                 {{-- <a href="" class="btn btn-success"><i class="bi bi-upload"></i> Cetak</a> --}}
                 {{-- <div class="card-title">Highlight Row Column</div> --}}
@@ -31,8 +31,13 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $key->name }}</td>
-                                    <td>--</td>
-                                    <td>--</td>
+                                    <td>{{ $key->bulan }}</td>
+                                    <td> 
+                                        <a href="#" class="btn btn-success">Pekan 1</a>
+                                        <a href="#" class="btn btn-success">Pekan 2</a>
+                                        <a href="#" class="btn btn-success">Pekan 3</a>
+                                        <a href="#" class="btn btn-success">Pekan 4</a>
+                                    </td>
                                     <td>
                                         <a href="#" class="btn btn-warning">Detail</a>
                                     </td>

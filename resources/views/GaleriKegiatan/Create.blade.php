@@ -23,7 +23,6 @@
                             style="font-size: 20px; color:#e2e8f0; font-weight:900; margin-top: -8px;"">FORM KEGIATAN</div>
                     </div>
                     <div class="card-body">
-
                         <div class="col-md-12">
                             <div class="m-0 mb-3">
                                 <label class="form-label">Kegiatan</label>
@@ -133,6 +132,19 @@
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
+                            @enderror
+                        </div>
+                        <div class="m-0 mb-3">
+                            <label class="form-label">Bulan</label>
+                            <select class="form-select @error('pekan') 'is-invalid'  @enderror"
+                                aria-label="Default select example" name="pekan_id">
+                                <option selected>--</option>
+                                @foreach ($bulan as $key)
+                                    <option value="{{ $key }}">{{ $key }}</option>
+                                @endforeach
+                            </select>
+                            @error('pekan')
+                                <strong class="text-danger invalid-feedback">{{ $message }}</strong>
                             @enderror
                         </div>
                         <div class="m-0 mb-3">

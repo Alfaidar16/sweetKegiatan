@@ -64,9 +64,14 @@ class GaleriKegiatanController extends Controller
 
     public function create() {
         $pekan = DB::table('pekans')->get();
+        $months = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
         $with = [ 
             'title' => 'Tambah Kegiatan',
-            'pekan' => $pekan
+            'pekan' => $pekan,
+            'bulan' => $months
         ];
 
         return view('GaleriKegiatan.Create')->with($with);
