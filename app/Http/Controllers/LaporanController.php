@@ -100,16 +100,29 @@ class LaporanController extends Controller
         $tanggal_akhir = date('Y-m-d', strtotime($request->tanggal_akhir));
       
         $template = new \PhpOffice\PhpWord\TemplateProcessor(public_path("/templateWord/format-word.docx"));
-        $replacements = [];
+    
+        $tanggal = $request->tanggal_awal . ' s.d ' . $request->tanggal_akhir;
+        $bidangId = Auth::user()->kode_bidang;
+        $nama = 'Dinas Ketahanan Pangan';
+        $kepalaBidang = 'Drs. ANDI MUHAMMAD ARSJAD, M.Si';
+        if($bidangId != null ) {
+            $bidang = DB::table('ms_bidangs')->where('kode_bidang', $bidangId)->first();
 
-        $template->setValues(array('name' => 'name', 'tanggal' => '16-04-2024'));
+            if($bidang) {
+                $nama = $bidang->nama_unit;
+                $kepalaBidang = $bidang->kepala_bidang;
+            }
+        }
+        $template->setValues(array('name' => $nama, 'tanggal' => $tanggal,  'kepalaBidang' => $kepalaBidang));
+        $data = DB::table('galeri_kegiatan')
+            ->leftJoin('users', 'galeri_kegiatan.users_id', '=', 'users.id')
+            ->select('users.*', 'galeri_kegiatan.*')
+            ->when($bidangId, function($qr, $bidangId) {
+                return $qr->where('users.kode_bidang', $bidangId);
+            })
+            ->whereBetween('tanggal', [$tanggal_awal, $tanggal_akhir])
+            ->get();
 
-        $data = DB::table('galeri_kegiatan')->leftJoin('users', 'galeri_kegiatan.users_id', '=', 'users.id')
-            ->select('users.*', 'galeri_kegiatan.*')->whereBetween('tanggal', [$tanggal_awal, $tanggal_akhir])->get();
-
-            // dd($data);
-          
-            // dd($tanggal_akhir);
         $template->cloneBlock('block_name', $data->count(), true, true);
         foreach ($data as $index => $item) {
             $template->setValue('lokasi_kegiatan#' . $index + 1, $item->lokasi_kegiatan);
@@ -159,12 +172,26 @@ class LaporanController extends Controller
         $endOfWeek = Carbon::parse($request->tanggal_akhir)->endOfWeek()->toDateString();
 
         $template = new \PhpOffice\PhpWord\TemplateProcessor(public_path("/templateWord/format-word.docx"));
-        $template->setValues(array('name' => 'name', 'tanggal' => '16-04-2024'));
+        $tanggal = $request->tanggal_awal . ' s.d ' . $request->tanggal_akhir;
+        $bidangId = Auth::user()->kode_bidang;
+        $nama = 'Dinas Ketahanan Pangan';
+        $kepalaBidang = 'Drs. ANDI MUHAMMAD ARSJAD, M.Si';
+        if($bidangId != null ) {
+            $bidang = DB::table('ms_bidangs')->where('kode_bidang', $bidangId)->first();
 
-        $replacements = [];
-
-        $data = DB::table('galeri_kegiatan')->leftJoin('users', 'galeri_kegiatan.users_id', '=', 'users.id')
-            ->select('users.*', 'galeri_kegiatan.*')->whereBetween('tanggal', [$startOfWeek, $endOfWeek])->get();
+            if($bidang) {
+                $nama = $bidang->nama_unit;
+                $kepalaBidang = $bidang->kepala_bidang;
+            }
+        }
+        $template->setValues(array('name' => $nama, 'tanggal' => $tanggal,  'kepalaBidang' => $kepalaBidang));
+        
+        $data = DB::table('galeri_kegiatan')
+        ->leftJoin('users', 'galeri_kegiatan.users_id', '=', 'users.id')
+        ->select('users.*', 'galeri_kegiatan.*')
+        ->when($bidangId, function($qr, $bidangId) {
+            return $qr->where('users.kode_bidang', $bidangId);
+        })->whereBetween('tanggal', [$startOfWeek, $endOfWeek])->get();
 
        
         $template->cloneBlock('block_name', $data->count(), true, true);
@@ -216,12 +243,27 @@ class LaporanController extends Controller
         $endOfMonth = Carbon::createFromFormat('d-m-Y', $request->tanggal_akhir)->endOfMonth()->toDateString();
 
         $template = new \PhpOffice\PhpWord\TemplateProcessor(public_path("/templateWord/format-word.docx"));
+        $tanggal = $request->tanggal_awal . ' s.d ' . $request->tanggal_akhir;
+        $bidangId = Auth::user()->kode_bidang;
+        $nama = 'Dinas Ketahanan Pangan';
+        $kepalaBidang = 'Drs. ANDI MUHAMMAD ARSJAD, M.Si';
+        if($bidangId != null ) {
+            $bidang = DB::table('ms_bidangs')->where('kode_bidang', $bidangId)->first();
 
-        $template->setValues(array('name' => 'name', 'tanggal' => '16-04-2024'));
-        $replacements = [];
+            if($bidang) {
+                $nama = $bidang->nama_unit;
+                $kepalaBidang = $bidang->kepala_bidang;
+            }
+        }
+        $template->setValues(array('name' => $nama, 'tanggal' => $tanggal,  'kepalaBidang' => $kepalaBidang));
+        
 
-        $data = DB::table('galeri_kegiatan')->leftJoin('users', 'galeri_kegiatan.users_id', '=', 'users.id')
-            ->select('users.*', 'galeri_kegiatan.*')->whereBetween('tanggal', [$startOfMonth, $endOfMonth])->get();
+        $data = DB::table('galeri_kegiatan')
+        ->leftJoin('users', 'galeri_kegiatan.users_id', '=', 'users.id')
+        ->select('users.*', 'galeri_kegiatan.*')
+        ->when($bidangId, function($qr, $bidangId) {
+            return $qr->where('users.kode_bidang', $bidangId);
+        })->whereBetween('tanggal', [$startOfMonth, $endOfMonth])->get();
 
 
         // dd($data);

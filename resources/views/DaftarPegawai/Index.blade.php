@@ -28,10 +28,17 @@
                         </thead>
                         <tbody>
                             @foreach ($datas as $key )
+                               @php
+                                   $kegit = DB::table('galeri_kegiatan')
+                                   ->selectRaw("GROUP_CONCAT(DISTINCT(bulan)) as bulan")
+                                   ->where('users_id', '=', $key->id)->first();
+                                   
+                               @endphp
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $key->name }}</td>
-                                    <td>{{ $key->bulan }}</td>
+                                    <td>{{ $kegit->bulan }}</td>
+                                    {{-- <td>{{ $key->bulan }}</td> --}}
                                     <td> 
                                         <a href="#" class="btn btn-success">Pekan 1</a>
                                         <a href="#" class="btn btn-success">Pekan 2</a>

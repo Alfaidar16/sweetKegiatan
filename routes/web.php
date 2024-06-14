@@ -53,6 +53,7 @@ Route::prefix('panel')->middleware('auth')->group(function () {
     });
 
 
+    // Route Sub Menu Bidang
     Route::group(['prefix' => 'bidang'], function () {
       Route::get('/', [\App\Http\Controllers\BidangController::class, 'index'])->name('bidang.index');
       Route::get('/create', [\App\Http\Controllers\BidangController::class, 'create'])->name('bidang.create');
@@ -61,12 +62,15 @@ Route::prefix('panel')->middleware('auth')->group(function () {
       Route::put('/update/{id}', [\App\Http\Controllers\BidangController::class, 'update'])->name('bidang.update');
       Route::post('/bidang/destroy', [\App\Http\Controllers\BidangController::class, 'destroy'])->name('bidang.destroy');
     });
-
+    // End Sub menu Bidang
 
   });
 
-
+  //  Route Menu Bidang 
   Route::get('daftar/pegawai/{kode_bidang}', [\App\Http\Controllers\DaftarPegawaiController::class, 'index'])->name('daftar.bidang');
+  // Route::get('bidang/detail/pekan/{kode_bidang}/{id}', [\App\Http\Controllers\DaftarPegawaiController::class, 'detailPekan'])->name('bidang.pekan');
+  // End Route Menu Bidang
+
   Route::prefix('laporan')->group(function () {
     Route::get('', [\App\Http\Controllers\LaporanController::class, 'index'])->name('laporan.index');
     Route::get('/filter/pekan/{id}', [LaporanController::class, 'filterByPekan'])->name('filter.pekan');

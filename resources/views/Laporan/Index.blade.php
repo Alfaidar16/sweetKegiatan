@@ -13,7 +13,7 @@
         <div class="col-lg-12">
             <div class="card p-3 pb-3">
                     <div class=" p-4 fw-bold" style="font-size: 30px;">Laporan Kegiatan Pemprov Sulsel</div>
-                    {{-- <div class="d-flex mx-5">
+                    <div class="d-flex mx-5">
                         <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Laporan Harian
                           </button>
@@ -26,15 +26,15 @@
 
                         
                       
-                    </div> --}}
-                  <div class="row">
+                    </div>
+                  {{-- <div class="row">
                     <div class="d-flex mx-5 mt-3">
                       @foreach ($pekan as $key )
                       <a href="{{ route('filter.pekan', $key->id) }}" class="btn btn-primary mx-2">{{ $key->pekan }}</a>
                       @endforeach
                       
                     </div>
-                  </div>
+                  </div> --}}
                  <div class="ms-auto">
                     <img src="{{ asset('/TemplateDashboard/design/assets/images/vector.png')}}" alt="" width="200" style="margin-top: -90px;">
                         

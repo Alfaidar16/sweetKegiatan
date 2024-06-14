@@ -27,19 +27,18 @@ class GaleriKegiatanController extends Controller
                 ->addIndexColumn()->editColumn('narasi_kegiatan', function ($kegiatan) {
                     $action = '<td class="text-wrap">'. $kegiatan->narasi_kegiatan .'</td>';
                     return $action;
-                })->editColumn('image', function($kegiatan) {          
+                })->editColumn('image', function ($kegiatan) {
                     $imageFiles = explode(",", $kegiatan->image);
                     $imageTags = [];
                     foreach ($imageFiles as $file) {
-                        $file = trim($file); 
+                        $file = trim($file);
                         if ($file) {
-                        
+
                             $imageTags[] = '<img src="' . asset('upload/kegiatan/' . $file) . '" style="max-width: 100px; max-height: 100px; margin-right: 10px;">';
                         }
                     }
                     $imageString = implode('', $imageTags);
                     return $imageString ? $imageString : '-';
-                 
                 })
                 ->editColumn('aksi', function ($kegiatan) {
                        $actionButton = '
