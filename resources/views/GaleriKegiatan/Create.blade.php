@@ -137,7 +137,7 @@
                         <div class="m-0 mb-3">
                             <label class="form-label">Bulan</label>
                             <select class="form-select @error('pekan') 'is-invalid'  @enderror"
-                                aria-label="Default select example" name="pekan_id">
+                                aria-label="Default select example" name="bulan">
                                 <option selected>--</option>
                                 @foreach ($bulan as $key)
                                     <option value="{{ $key }}">{{ $key }}</option>

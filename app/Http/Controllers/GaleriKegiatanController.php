@@ -91,6 +91,7 @@ class GaleriKegiatanController extends Controller
             'dokumen' => 'file|mimes:pdf,doc,docx|max:10240', // Validasi untuk file dokumen
             'narasi_kegiatan' => 'required',
             'pekan_id' => 'required'
+            
         ], [
             'nama_kegiatan.required' => 'Nama kegiatan harus diisi.',
             'nama_kegiatan.string' => 'Nama kegiatan harus berupa teks.',
@@ -151,6 +152,7 @@ class GaleriKegiatanController extends Controller
         'image' => $imagePathsString ,
         'dokumen' => $dokumenName,
         'slug'  => Str::slug($request->nama_kegiatan),
+        'bulan' => $request->bulan,
         'users_id' => Auth::user()->id,
         'hari' => date('l'),
         'pekan_id' =>  $request->pekan_id,
