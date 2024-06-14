@@ -36,7 +36,7 @@
             <h2>Selamat Datang, 
                 <strong> {{ Auth::user()->name }}</strong>
             </h2>
-            <p>Aplikasi  <strong>Sweet</strong></p>
+            <p>Aplikasi  <strong>Sweet,</strong> Sistem Informasi Weekly Report</p>
            </div>
         </div>
        
