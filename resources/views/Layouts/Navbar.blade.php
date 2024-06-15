@@ -23,6 +23,7 @@
                     </a>
                 </li>
                {{-- @role('user') --}}
+               @if(Auth::user()->roles_id == 1 || Auth::user()->roles_id == 2)
                 <li class="@if (Route::is('kegiatan', 'kegiatan.create', 'kegiatan.edit')) active-page-link @endif">
                     <a href="{{ route('kegiatan')}}">
                         <i class="bi bi-text-right"></i>
@@ -36,9 +37,10 @@
                         {{-- <span class="badge red">15</span> --}}
                     </a>
                 </li>
+                @endif
 
               
-                @if(Auth::user()->roles_id == 1) 
+                @if(Auth::user()->roles_id == 1 || Auth::user()->roles_id == 3) 
                 <li class="sidebar-dropdown">
                     <a href="#">
                         <i class="bi bi-bar-chart-fill"></i>
@@ -64,6 +66,8 @@
                         </ul>
                     </div>
                 </li>
+                @endif
+                @if(Auth::user()->roles_id == 1)
                 <li class="sidebar-dropdown">
                     <a href="#">
                         <i class="bi bi-person-lines-fill"></i>

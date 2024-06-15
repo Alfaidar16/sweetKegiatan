@@ -8,11 +8,10 @@
 <div class="row mt-5">
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-header mt-2">
+            {{-- <div class="card-header mt-2">
                 <a href="{{ route('bidang.create')}}" class="btn btn-primary"><i class="bi bi-plus-lg"></i>Tambah Bidang</a>
-                {{-- <a href="" class="btn btn-success"><i class="bi bi-upload"></i> Cetak</a> --}}
-                {{-- <div class="card-title">Highlight Row Column</div> --}}
-            </div>
+              
+            </div> --}}
             <div class="card-body mt-5">
                 <div class="table-responsive">
                     <table id="dataBidang" class="table custom-table">
@@ -20,11 +19,23 @@
                             <tr style="font-size: 10px;">
                                 <th>No</th>
                                 <th>Unit Kerja</th>
+                                <th>Nip</th>
+                                <th>Kepala Bidang</th>
                                 <th>Nama</th>
-                                <th>Tingkatan</th>
-                                <th>Aksi</th>                             
+                                                         
                             </tr>
                         </thead>
+                        <tbody>
+                            @foreach ($bidang as $key )
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $key->kode_bidang }}</td>
+                                    <td>{{ $key->nip }}</td>
+                                    <td>{{ $key->kepala_bidang }}</td>
+                                    <td> {{ $key->nama_unit }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
                       
                     </table>
                 </div>
@@ -46,41 +57,8 @@
                     "pageLength": 10,
                     "searching": true,
                     "processing": true,
-                    "serverside": true,
-                    "scrollX": true,
-                    "language": {
-                        "processing": 'Memuat...'
-                    },
-                    "serverSide": true,
-                    "ajax": {
-                        url: "{{ route('bidang.index') }}",
-                    },
-                    "columns": [{
-                            "data": "DT_RowIndex",
-                            "orderable": false,
-                            "searchable": false
-                        },
-                        {
-                            "data": "kode_bidang"
-                        },
-                        {
-                            "data": "nama_unit"
-                        },
-                        {
-                            "data": "tingkatan"
-                        },
-                        {
-                            "data": "aksi",
-                            "orderable": false,
-                            "searchable": false
-                        },
-                    ],
-                    "bAutoWidth": false,
-                    "columnDefs": [{
-                        targets: [0, 1, 2, 3, ,4],
-                        className: 'text-left'
-                    }],
-                    "bDestroy": true,
+                   
+                 
                 });
             }
 
@@ -94,7 +72,7 @@
             
     //    } 
 </script>
-<script>
+{{-- <script>
     
 
        function hapusBidang(id) {
@@ -146,5 +124,5 @@
         }
 
 
-</script>
+</script> --}}
 @endsection

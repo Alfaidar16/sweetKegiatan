@@ -23,7 +23,7 @@
                                 <th>Nama</th>
                                 <th>Bulan</th>          
                                 <th>Informasi</th>
-                                <th>Aksi</th>                             
+                                {{-- <th>Aksi</th>                              --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -45,9 +45,9 @@
                                         <a href="#" class="btn btn-success">Pekan 3</a>
                                         <a href="#" class="btn btn-success">Pekan 4</a>
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         <a href="#" class="btn btn-warning">Detail</a>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>

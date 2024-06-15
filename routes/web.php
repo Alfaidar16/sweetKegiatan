@@ -56,11 +56,11 @@ Route::prefix('panel')->middleware('auth')->group(function () {
     // Route Sub Menu Bidang
     Route::group(['prefix' => 'bidang'], function () {
       Route::get('/', [\App\Http\Controllers\BidangController::class, 'index'])->name('bidang.index');
-      Route::get('/create', [\App\Http\Controllers\BidangController::class, 'create'])->name('bidang.create');
-      Route::get('/edit/{id}', [\App\Http\Controllers\BidangController::class, 'edit'])->name('bidang.edit');
-      Route::post('/store', [\App\Http\Controllers\BidangController::class, 'store'])->name('bidang.store');
-      Route::put('/update/{id}', [\App\Http\Controllers\BidangController::class, 'update'])->name('bidang.update');
-      Route::post('/bidang/destroy', [\App\Http\Controllers\BidangController::class, 'destroy'])->name('bidang.destroy');
+      // Route::get('/create', [\App\Http\Controllers\BidangController::class, 'create'])->name('bidang.create');
+      // Route::get('/edit/{id}', [\App\Http\Controllers\BidangController::class, 'edit'])->name('bidang.edit');
+      // Route::post('/store', [\App\Http\Controllers\BidangController::class, 'store'])->name('bidang.store');
+      // Route::put('/update/{id}', [\App\Http\Controllers\BidangController::class, 'update'])->name('bidang.update');
+      // Route::post('/bidang/destroy', [\App\Http\Controllers\BidangController::class, 'destroy'])->name('bidang.destroy');
     });
     // End Sub menu Bidang
 

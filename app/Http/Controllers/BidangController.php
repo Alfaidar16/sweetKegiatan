@@ -12,28 +12,42 @@ class BidangController extends Controller
 {
     public function index(Request $request)
     {
-            if ($request->ajax()) {
-                // $bidang =  DB::table('ms_bidangs')->get();
-                $bidang = DB::table('ms_bidangs')
-                ->where(DB::raw('SUBSTRING(kode_bidang, -2)'), '00')
-                ->get();
+        $bidang = DB::table('ms_bidangs')
+        ->leftJoin('users', 'ms_bidangs.kode_bidang', '=', 'users.kode_bidang')
+        ->where(DB::raw('SUBSTRING(ms_bidangs.kode_bidang, -2)'), '00')
+        ->whereNotNull('ms_bidangs.kepala_bidang')
+        ->where('users.roles_id', 3)
+        ->select('users.nip', 'ms_bidangs.kode_bidang', 'ms_bidangs.kepala_bidang', 'ms_bidangs.nama_unit')
+        ->get();
 
-                return Datatables::of($bidang)->addIndexColumn()
-                ->editColumn('aksi', function ($bidang) {
-                    $actionButton = '
-                    <a href="' . route('bidang.edit', $bidang->id) . '" class="btn waves-effect waves-light btn-success btn-sm">
-                    <i class="bi bi-pencil-square"></i>
-               </a>
-                  </button>
-                     <button class="btn waves-effect waves-light btn-danger btn-sm" onclick="hapusBidang(&quot;' . $bidang->id . '&quot;)">
-                         <i class="bi bi-trash"></i>
-                    </button>';
-                    return $actionButton; 
-                })->escapeColumns([])
-                    ->make(true);
-            }
+        // dd($bidang);
+
+            // if ($request->ajax()) {
+            //     $bidang = DB::table('ms_bidangs')
+            //     // ->leftJoin('users', 'ms_bidangs.kode_bidang', '=', 'users.kode_bidang')
+            //     ->where(DB::raw('SUBSTRING(ms_bidangs.kode_bidang, -2)'), '00')
+            //     // ->whereNotNull('ms_bidangs.kepala_bidang')
+            //     // ->where('users.roles_id', 3)
+            //     // ->select('users.nip', 'ms_bidangs.kode_bidang', 'ms_bidangs.kepala_bidang', 'ms_bidangs.nama_unit')
+            //     ->get();
+        
+            //     return Datatables::of($bidang)->addIndexColumn()
+            //     ->editColumn('aksi', function ($bidang) {
+            //         $actionButton = '
+            //         <a href="' . route('bidang.edit', $bidang->id) . '" class="btn waves-effect waves-light btn-success btn-sm">
+            //         <i class="bi bi-pencil-square"></i>
+            //    </a>
+            //       </button>
+            //          <button class="btn waves-effect waves-light btn-danger btn-sm" onclick="hapusBidang(&quot;' . $bidang->id . '&quot;)">
+            //              <i class="bi bi-trash"></i>
+            //         </button>';
+            //         return $actionButton; 
+            //     })->escapeColumns([])
+            //         ->make(true);
+            // }
         $with = [
             'title' => 'Data Bidang',
+            'bidang' => $bidang
         ]; 
         return view('Bidang.Index')->with($with);
     }
