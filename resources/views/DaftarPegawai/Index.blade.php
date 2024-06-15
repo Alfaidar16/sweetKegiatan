@@ -32,7 +32,9 @@
                                    $kegit = DB::table('galeri_kegiatan')
                                    ->selectRaw("GROUP_CONCAT(DISTINCT(bulan)) as bulan")
                                    ->where('users_id', '=', $key->id)->first();
-                                   
+                                   $kepekan = DB::table('galeri_kegiatan')
+                                   ->selectRaw("GROUP_CONCAT(DISTINCT(pekan_id)) as pekan_id")
+                                   ->where('users_id', '=', $key->id)->first();
                                @endphp
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
@@ -40,7 +42,12 @@
                                     <td>{{ $kegit->bulan }}</td>
                                     {{-- <td>{{ $key->bulan }}</td> --}}
                                     <td> 
+                                        @if($kepekan->pekan_id == null)
+
+                                        <a href="#" class="btn btn-danger">Pekan 1</a>
+                                        @else
                                         <a href="#" class="btn btn-success">Pekan 1</a>
+                                        @endif
                                         <a href="#" class="btn btn-success">Pekan 2</a>
                                         <a href="#" class="btn btn-success">Pekan 3</a>
                                         <a href="#" class="btn btn-success">Pekan 4</a>
