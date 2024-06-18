@@ -13,12 +13,22 @@ class DaftarPegawaiController extends Controller
         $titleBidang = DB::table('ms_bidangs')->where('kode_bidang', $kode_bidang)->first();
         $dataPegawai = DB::table('ms_bidangs')
         ->leftJoin('users', 'ms_bidangs.kode_bidang', '=', 'users.kode_bidang')
+        ->leftJoin('galeri_kegiatan', 'galeri_kegiatan.users_id', 'users.id')
+        ->leftJoin('pekans', 'galeri_kegiatan.pekan_id', 'pekans.id')
         ->where('ms_bidangs.kode_bidang', $kode_bidang)
-        ->select( 'users.id',   'ms_bidangs.nama_unit', 'users.name')
+        ->select( 'users.id', 'pekans.pekan', 'galeri_kegiatan.bulan', 'galeri_kegiatan.pekan_id',   'ms_bidangs.nama_unit', 'users.name')
         ->get();
 
-   
-        // dd($dataPegawai);
+        // $groupedData = $dataPegawai->groupBy('pekan_id');
+
+        // $dataPegawai = DB::table('ms_bidangs')
+        // ->leftJoin('users', 'ms_bidangs.kode_bidang', '=', 'users.kode_bidang')
+        // ->where('ms_bidangs.kode_bidang', $kode_bidang)
+        // ->select( 'users.id',    'ms_bidangs.nama_unit', 'users.name')
+        // ->get();
+        // dd($tes);
+        
+        // dd($groupedData);
         $with = [ 
             'title' => 'Daftar Pegawai',
             'datas' => $dataPegawai,
@@ -27,13 +37,14 @@ class DaftarPegawaiController extends Controller
         return view('DaftarPegawai.Index')->with($with);
     }
 
-    public function detailPekan($kode_bidang, $id) {
-        $data = DB::table('ms_bidangs')
-        ->leftJoin('users', 'ms_bidangs.kode_bidang', '=', 'users.kode_bidang')
-        ->where('ms_bidangs.kode_bidang', $kode_bidang)
-        ->select( 'users.id',   'ms_bidangs.nama_unit', 'users.name')
-        ->get();
+    public function detailPekan($id) {
+       
 
-        dd($data);
+       
+
+    // Group the data by pekan_id
+    // $groupedData = $dataPegawai->groupBy('pekan_id');
+
+        // dd($groupedData);
     }
 }

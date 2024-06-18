@@ -50,8 +50,8 @@
                     <div class="sidebar-submenu">
                         @php
                               $dinas = DB::table('ms_bidangs')
-                ->where(DB::raw('SUBSTRING(kode_bidang, -2)'), '00')
-                ->get();
+                            ->where(DB::raw('SUBSTRING(kode_bidang, -2)'), '00')
+                            ->get();
                         @endphp
                         <ul>
                              @foreach ($dinas as $key )

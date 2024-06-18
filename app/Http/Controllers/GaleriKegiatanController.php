@@ -163,12 +163,17 @@ class GaleriKegiatanController extends Controller
     }
 
     public function edit($slug) {
+        $months = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
         $kegiatan = DB::table('galeri_kegiatan')->where('slug', $slug)->first();
         $pekan = DB::table('pekans')->get();
         $with = [ 
             'title' => 'Edit Kegiatan',
             'kegiatan' => $kegiatan,
-            'pekan' => $pekan
+            'pekan' => $pekan,
+            'bulan' => $months
         ];
 
         return view('GaleriKegiatan.Edit')->with($with);
@@ -176,6 +181,7 @@ class GaleriKegiatanController extends Controller
 
 
     public function update(Request $request, $id) {
+        
         $dir = 'upload/kegiatan';
         $dok = 'upload/file';
         $this->validate($request, [
@@ -253,6 +259,7 @@ class GaleriKegiatanController extends Controller
         'users_id' => Auth::user()->id,
         'hari' => date('l'),
         'pekan_id' =>  $request->pekan_id,
+        'bulan' => $request->bulan,
         'tanggal' => date('Y-m-d', strtotime($request->tanggal)),
         'created_at' => date('Y-m-d H:i:s'),
         

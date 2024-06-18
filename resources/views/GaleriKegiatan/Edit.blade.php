@@ -124,6 +124,20 @@
                     @enderror
                     </div>
                     <div class="m-0 mb-3">
+                        <label class="form-label">Bulan</label>
+                        <select class="form-select @error('bulan') 'is-invalid'  @enderror"
+                            aria-label="Default select example" name="bulan">
+                            <option selected>{{ $kegiatan->bulan }}</option>
+                            @foreach ($bulan as $key)
+                            
+                                <option value="{{ $key }}">{{ $key }}</option>
+                            @endforeach
+                        </select>
+                        @error('pekan')
+                            <strong class="text-danger invalid-feedback">{{ $message }}</strong>
+                        @enderror
+                    </div>
+                    <div class="m-0 mb-3">
                         <label class="form-label">Pekan</label>
                         <select class="form-select @error('pekan') 'is-invalid'  @enderror"
                             aria-label="Default select example" name="pekan_id">
