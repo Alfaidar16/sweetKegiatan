@@ -611,6 +611,7 @@ class ComposerStaticInitb918cebd658b3e66a50ff1725a2841ea
     );
 
     public static $classMap = array (
+        'App\\Charts\\LaporanChart' => __DIR__ . '/../..' . '/app/Charts/LaporanChart.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
