@@ -11,7 +11,7 @@ class HomeController extends Controller
 {
     public function Index(LaporanChart $LaporanChart) {
      
-      $data['laporanChart'] = $LaporanChart->build();
+      $data['laporan'] = $LaporanChart->build();
         $with = [ 
             'title' => 'Dashboard',
             'laporanChart' => $LaporanChart->build()
