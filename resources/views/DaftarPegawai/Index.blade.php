@@ -9,7 +9,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header mt-2">
-                <button class="btn btn-primary p-2">{{ $jBidang->nama_unit }}</button>
+                <button class="btn btn-primary p-3">{{ $jBidang->nama_unit }}</button>
                 {{-- <a href="{{ route('akun.create')}}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Buat
                     User</a> --}}
                 {{-- <a href="" class="btn btn-success"><i class="bi bi-upload"></i> Cetak</a> --}}
