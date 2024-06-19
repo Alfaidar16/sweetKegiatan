@@ -55,14 +55,14 @@
                                     <a href="#" class="btn btn-danger">Pekan 2</a>
                                     @endif
                                     @if($key->pekan_id == 3)
-                                    <a href="#" class="btn btn-success">Pekan 3</a>
+                                    <a href="{{ route('bidang.pekan',['users_id' => $key->users_id, 'pekan_id' => $key->pekan_id]) }}" class="btn btn-success">Pekan 3</a>
                                     @else
                                     <a href="#" class="btn btn-danger">Pekan 3</a>
                                     @endif
-                                    @if($key->pekan_id == 3)
-                                    <a href="#" class="btn btn-success">Pekan 3</a>
+                                    @if($key->pekan_id == 4)
+                                    <a href="{{ route('bidang.pekan',['users_id' => $key->users_id, 'pekan_id' => $key->pekan_id]) }}" class="btn btn-success">Pekan 4</a>
                                     @else
-                                    <a href="#" class="btn btn-danger">Pekan 3</a>
+                                    <a href="#" class="btn btn-danger">Pekan 4</a>
                                     @endif                               
                                  </td>
             

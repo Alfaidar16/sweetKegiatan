@@ -20,31 +20,6 @@ class BidangController extends Controller
         ->select('users.nip', 'ms_bidangs.kode_bidang', 'ms_bidangs.kepala_bidang', 'ms_bidangs.nama_unit')
         ->get();
 
-        // dd($bidang);
-
-            // if ($request->ajax()) {
-            //     $bidang = DB::table('ms_bidangs')
-            //     // ->leftJoin('users', 'ms_bidangs.kode_bidang', '=', 'users.kode_bidang')
-            //     ->where(DB::raw('SUBSTRING(ms_bidangs.kode_bidang, -2)'), '00')
-            //     // ->whereNotNull('ms_bidangs.kepala_bidang')
-            //     // ->where('users.roles_id', 3)
-            //     // ->select('users.nip', 'ms_bidangs.kode_bidang', 'ms_bidangs.kepala_bidang', 'ms_bidangs.nama_unit')
-            //     ->get();
-        
-            //     return Datatables::of($bidang)->addIndexColumn()
-            //     ->editColumn('aksi', function ($bidang) {
-            //         $actionButton = '
-            //         <a href="' . route('bidang.edit', $bidang->id) . '" class="btn waves-effect waves-light btn-success btn-sm">
-            //         <i class="bi bi-pencil-square"></i>
-            //    </a>
-            //       </button>
-            //          <button class="btn waves-effect waves-light btn-danger btn-sm" onclick="hapusBidang(&quot;' . $bidang->id . '&quot;)">
-            //              <i class="bi bi-trash"></i>
-            //         </button>';
-            //         return $actionButton; 
-            //     })->escapeColumns([])
-            //         ->make(true);
-            // }
         $with = [
             'title' => 'Data Bidang',
             'bidang' => $bidang
@@ -106,14 +81,7 @@ class BidangController extends Controller
             'kode_bidang.max' => 'Kode Bidang Maksimal 10 Karakter'
         ]);
       
-        // $cek =  [
-        //     'nama_unit' => $request->nama_unit,
-        //     'kode_bidang' => $request->kode_bidang,
-        //     'tingkatan' => 'Sub Unit Kerja',
-        //     'created_at' => date('Y-m-d H:i:s'),
-        // ];
-
-        // dd($cek);
+   
          
         DB::table('ms_bidangs')->where('id', $id)->update([
             'nama_unit' => $request->nama_unit,
