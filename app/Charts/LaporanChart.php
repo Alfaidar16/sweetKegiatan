@@ -27,10 +27,10 @@ class LaporanChart
         ];
 
         $label = [
-            'pekan 1',
-            'pekan 2', 
-            'pekan 3', 
-            'pekan 4'
+            'Pekan 1',
+            'Pekan 2', 
+            'Pekan 3', 
+            'Pekan 4'
         ];
 
 
