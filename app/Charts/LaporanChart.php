@@ -30,7 +30,7 @@ class LaporanChart
             'pekan 1',
             'pekan 2', 
             'pekan 3', 
-             'pekan 4'
+            'pekan 4'
         ];
 
 
