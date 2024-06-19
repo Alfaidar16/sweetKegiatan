@@ -30,38 +30,39 @@
                         <tbody>
                             @foreach ($datas as $key )
                             @php
-                            $kegit = DB::table('galeri_kegiatan')
-                            ->selectRaw("GROUP_CONCAT(DISTINCT(bulan)) as bulan")
-                            ->where('users_id', '=', $key->id)->first();
+                            // $kegit = DB::table('galeri_kegiatan')
+                            // ->selectRaw("GROUP_CONCAT(DISTINCT(users_id)) as users_id")
+                            // ->where('users_id', '=', $key->id)->first();
 
-                         
+                      
                         
                             @endphp
                             <tr>
+                              
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $key->name }}</td>
-                                <td>{{ $kegit->bulan }}</td>
+                                <td>{{ $key->bulan }}</td>
                                 {{-- <td>{{ $key->bulan }}</td> --}}
                                 <td>
                                     @if($key->pekan_id == 1)
-                                    <a href="{{ route('bidang.pekan', $key->id) }}" class="btn btn-success">Pekan 1</a>
+                                    <a href="{{ route('bidang.pekan',['users_id' => $key->users_id, 'pekan_id' => $key->pekan_id]) }}" class="btn btn-success">Pekan 1</a>
                                     @else
-                                    <a href="{{ route('bidang.pekan', $key->id) }}" class="btn btn-danger">Pekan 1</a>
+                                    <a href="#" class="btn btn-danger">Pekan 1</a>
                                     @endif
                                     @if($key->pekan_id == 2)
-                                    <a href="{{ route('bidang.pekan', $key->id) }}" class="btn btn-success">Pekan 2</a>
+                                    <a href="{{ route('bidang.pekan',['users_id' => $key->users_id, 'pekan_id' => $key->pekan_id]) }}" class="btn btn-success">Pekan 2</a>
                                     @else
-                                    <a href="{{ route('bidang.pekan', $key->id) }}" class="btn btn-danger">Pekan 2</a>
+                                    <a href="#" class="btn btn-danger">Pekan 2</a>
                                     @endif
                                     @if($key->pekan_id == 3)
-                                    <a href="{{ route('bidang.pekan', $key->id) }}" class="btn btn-success">Pekan 3</a>
+                                    <a href="#" class="btn btn-success">Pekan 3</a>
                                     @else
-                                    <a href="{{ route('bidang.pekan', $key->id) }}" class="btn btn-danger">Pekan 3</a>
+                                    <a href="#" class="btn btn-danger">Pekan 3</a>
                                     @endif
                                     @if($key->pekan_id == 3)
-                                    <a href="{{ route('bidang.pekan', $key->id) }}" class="btn btn-success">Pekan 3</a>
+                                    <a href="#" class="btn btn-success">Pekan 3</a>
                                     @else
-                                    <a href="{{ route('bidang.pekan', $key->id) }}" class="btn btn-danger">Pekan 3</a>
+                                    <a href="#" class="btn btn-danger">Pekan 3</a>
                                     @endif                               
                                  </td>
             

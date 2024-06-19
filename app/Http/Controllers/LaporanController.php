@@ -145,7 +145,7 @@ class LaporanController extends Controller
 
                     // Set image value di template
                     $template->setImageValue($placeholder, [
-                        'path' => public_path('upload/kegiatan/' . $file),
+                        'path' => 'upload/kegiatan/' . $file,
                         'width' => 400,
                         'height' => 350,
                         'ratio' => true
@@ -154,7 +154,7 @@ class LaporanController extends Controller
             }
         }
 
-        $saveDocPath = public_path('new-result' . date("ymdhis") . '.docx');
+        $saveDocPath = 'new-result' . date("ymdhis") . '.docx';
         $template->saveAs($saveDocPath);
 
         $paramsUrl = url("new-result" . date("ymdhis") . ".docx");
@@ -217,7 +217,7 @@ class LaporanController extends Controller
 
                    // Set image value di template
                    $template->setImageValue($placeholder, [
-                       'path' => public_path('upload/kegiatan/' . $file),
+                       'path' => 'upload/kegiatan/' . $file,
                        'width' => 400,
                        'height' => 350,
                        'ratio' => true
@@ -225,7 +225,7 @@ class LaporanController extends Controller
                }
            }
         }
-        $saveDocPath = public_path('new-result' . date("ymdhis") . '.docx');
+        $saveDocPath = 'new-result' . date("ymdhis") . '.docx';
         $template->saveAs($saveDocPath);
 
         $paramsUrl = url("new-result" . date("ymdhis") . ".docx");
@@ -290,7 +290,7 @@ class LaporanController extends Controller
 
                    // Set image value di template
                    $template->setImageValue($placeholder, [
-                       'path' => public_path('upload/kegiatan/' . $file),
+                       'path' => 'upload/kegiatan/' . $file,
                        'width' => 400,
                        'height' => 350,
                        'ratio' => true
@@ -298,7 +298,7 @@ class LaporanController extends Controller
                }
            }
         }
-        $saveDocPath = public_path('new-result' . date("ymdhis") . '.docx');
+        $saveDocPath = 'new-result' . date("ymdhis") . '.docx';
         $template->saveAs($saveDocPath);
 
         $paramsUrl = url("new-result" . date("ymdhis") . ".docx");

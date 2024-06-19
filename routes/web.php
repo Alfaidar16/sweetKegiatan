@@ -69,7 +69,7 @@ Route::prefix('panel')->middleware('auth')->group(function () {
   //  Route Menu Bidang 
   Route::get('daftar/pegawai/{kode_bidang}', [\App\Http\Controllers\DaftarPegawaiController::class, 'index'])->name('daftar.bidang');
  
-  Route::get('bidang/detail/pekan/{id}', [\App\Http\Controllers\DaftarPegawaiController::class, 'detailPekan'])->name('bidang.pekan');
+  Route::get('bidang/detail/pekan/{users_id}/{pekan_id}', [\App\Http\Controllers\DaftarPegawaiController::class, 'detailPekan'])->name('bidang.pekan');
   // End Route Menu Bidang
 
   Route::prefix('laporan')->group(function () {
