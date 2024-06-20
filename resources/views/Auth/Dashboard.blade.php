@@ -39,8 +39,8 @@
             <p>Aplikasi  <strong>Sweet,</strong> Sistem Informasi Weekly Report</p>
            </div>
         </div>
-         <div class="row">
-            <div class="col">
+         <div class="row mt-5">
+            <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="p-6 m-20 bg-white rounded shadow">

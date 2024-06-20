@@ -32,8 +32,6 @@ class LaporanChart
             'Pekan 3', 
             'Pekan 4'
         ];
-
-
         return $this->chart->pieChart()
             ->setTitle('Data Laporan Perpekan')
             ->setSubtitle(date('Y'))

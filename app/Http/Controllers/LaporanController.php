@@ -103,6 +103,7 @@ class LaporanController extends Controller
     
         $tanggal = $request->tanggal_awal . ' s.d ' . $request->tanggal_akhir;
         $bidangId = Auth::user()->kode_bidang;
+        $userId = Auth::user()->id;
         $nama = 'Dinas Ketahanan Pangan';
         $kepalaBidang = 'Drs. ANDI MUHAMMAD ARSJAD, M.Si';
         if($bidangId != null ) {
@@ -119,7 +120,7 @@ class LaporanController extends Controller
             ->select('users.*', 'galeri_kegiatan.*')
             ->when($bidangId, function($qr, $bidangId) {
                 return $qr->where('users.kode_bidang', $bidangId);
-            })
+            })->where('users_id', $userId)
             ->whereBetween('tanggal', [$tanggal_awal, $tanggal_akhir])
             ->get();
 
