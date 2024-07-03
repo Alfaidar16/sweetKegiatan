@@ -50,6 +50,7 @@ Route::prefix('panel')->middleware('auth')->group(function () {
       Route::get('edit/{id}', [\App\Http\Controllers\UsersController::class, 'edit'])->name('akun.edit');
       Route::post('/create/store', [\App\Http\Controllers\UsersController::class, 'store'])->name('akun.store');
       Route::put('/update/{id}', [\App\Http\Controllers\UsersController::class, 'update'])->name('akun.update');
+      Route::get('/filter/{kode_bidang}', [\App\Http\Controllers\UsersController::class, 'filter'])->name('filter.users');
     });
 
 

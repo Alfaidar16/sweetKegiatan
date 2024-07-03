@@ -8,11 +8,21 @@
 <div class="row mt-5">
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-header mt-2 d-none">
+            <div class="card-header  mx-2 mt-2 d-flex">
                 <a href="{{ route('akun.create')}}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Buat User</a>
                 {{-- <a href="" class="btn btn-success"><i class="bi bi-upload"></i> Cetak</a> --}}
                 {{-- <div class="card-title">Highlight Row Column</div> --}}
+               <div class="col-lg-4 ms-auto">
+                <select class="form-select" aria-label="Default select example" id="tampil">
+                    <option value=""><a href="{{ route('akun.index') }}"></a>Semua</option>
+                    @foreach ($bidang as $key )
+                    <option value="{{ $key->kode_bidang }}" >{{ $key->nama_unit }}</option>
+                    @endforeach
+                  </select>
+               </div>
+             
             </div>
+            
             <div class="card-body mt-5">
                 <div class="table-responsive">
                     <table id="dataUser" class="table custom-table">
@@ -36,6 +46,10 @@
 @endsection
 @section('js')
 <script> 
+
+  
+</script>
+<script> 
       $(document).ready(function() {
             load_data();
 
@@ -51,7 +65,7 @@
                     },
                     "serverSide": true,
                     "ajax": {
-                        url: "{{ route('akun.index') }}",
+                        url: "{{ route('akun.index') }}?unit="+unit,
                     },
                     "columns": [{
                             "data": "DT_RowIndex",
@@ -85,7 +99,11 @@
                     "bDestroy": true,
                 });
             }
-
+            $('#tampil').change( function () {
+            var id = $(this).val();
+            load_data(id)
+            console.log(id)
+        })
         });
 </script>
 {{-- <script>

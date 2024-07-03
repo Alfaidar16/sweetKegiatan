@@ -121,7 +121,8 @@ class LaporanController extends Controller
             ->when($bidangId, function($qr, $bidangId) {
                 return $qr->where('users.kode_bidang', $bidangId);
             })->where('users_id', $userId)
-            ->whereBetween('tanggal', [$tanggal_awal, $tanggal_akhir])
+            ->whereBetween('tanggal', [$tanggal_awal, $tanggal_akhir]) 
+             ->orderBy('galeri_kegiatan.tanggal', 'asc')
             ->get();
 
         $template->cloneBlock('block_name', $data->count(), true, true);

@@ -45,6 +45,10 @@
 <div class="row mt-5">
    <div class="col-lg-12">
      @foreach ($dataPerpekan as $key )
+     @php
+    
+     $images = explode(',', $key->image);
+        @endphp
      <div class="card">
         <div class="card-header">
             <h5>{{ $key->nama_kegiatan }}</h5>
@@ -52,27 +56,10 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-sm-6">
-                    <img src="{{ asset('upload/kegiatan/' . $key->image) }}" alt="" width="500">
-                    {{-- <table>
-                        <tbody>
-                            <tr>
-                                <td>Tes</td>
-                                <td>&nbsp; : &nbsp;</td>
-                                <td>Tes</td>
-                            </tr>
-
-                            <tr>
-                                <td>Tes</td>
-                                <td>&nbsp; : &nbsp;</td>
-                                <td>Tes</td>
-                            </tr>
-                            <tr>
-                                <td>Tes</td>
-                                <td>&nbsp; : &nbsp;</td>
-                                <td>Tes</td>
-                            </tr>
-                        </tbody>
-                    </table> --}}
+                    @foreach ($images as $image )
+                    <img src="{{ asset('upload/kegiatan/' . trim($image)) }}" alt="" width="500">
+                    @endforeach
+                   
                 </div>
                 <div class="col-sm-6">
                     <table>

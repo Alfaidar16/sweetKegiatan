@@ -20,7 +20,6 @@ class DaftarPegawaiController extends Controller
         // ->select( 'users.id', 'pekans.pekan', 'galeri_kegiatan.bulan', 'galeri_kegiatan.pekan_id',   'ms_bidangs.nama_unit', 'users.name')
         // ->get();
 
-        
         $dataPegawai = DB::table('galeri_kegiatan')
             ->leftJoin('users', 'galeri_kegiatan.users_id', '=', 'users.id')
             ->leftJoin('ms_bidangs', 'users.kode_bidang', '=', 'ms_bidangs.kode_bidang')
@@ -41,9 +40,6 @@ class DaftarPegawaiController extends Controller
 
     public function detailPekan($users_id, $pekan_id) {
        
-
-        // $userId = Auth::user()->id;
-      
         $data = DB::table('galeri_kegiatan')
         ->leftJoin('users', 'galeri_kegiatan.users_id', '=', 'users.id')
         ->leftJoin('ms_bidangs', 'users.kode_bidang', '=', 'ms_bidangs.kode_bidang')

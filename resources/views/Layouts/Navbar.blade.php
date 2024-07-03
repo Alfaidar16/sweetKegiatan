@@ -1,12 +1,13 @@
 <nav class="sidebar-wrapper">
 
     <!-- Sidebar brand starts -->
-    <div class="brand">
+    <div class="brand text-center mt-4" style= "padding-left: 30px;">
         <a href="{{ route('dashboard')}}" class="logo">
        <div class="d-flex">
-        <img src="{{ asset('/TemplateDashboard/design/assets/images/faviconsulsel.png')}}" class="" alt="Rapid Admin Dashboard" />
-        <span class="justify-content-end mt-4">Selamat Datang {{Auth()->user()->name}}</span>
+        <img src="{{ asset('/TemplateLogin/logosweetp.png')}}" class="text-center" alt="Rapid Admin Dashboard" />
+       
        </div>
+        <span class="justify-content-end mt-4 text-white pt-2 text-center">Selamat Datang <br> {{Auth()->user()->name}}</span>
           
         </a>
     </div>
@@ -49,8 +50,9 @@
                     </a>
                     <div class="sidebar-submenu">
                         @php
+                            $auth = Auth::user()->kode_bidang;
                               $dinas = DB::table('ms_bidangs')
-                            ->where(DB::raw('SUBSTRING(kode_bidang, -2)'), '00')
+                            ->where(DB::raw('SUBSTRING(kode_bidang, -2)'), '00')->where('kode_bidang', $auth)
                             ->get();
                         @endphp
                         <ul>

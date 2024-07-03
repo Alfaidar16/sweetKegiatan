@@ -13,14 +13,21 @@ class UsersController extends Controller
 {
     public function index(Request $request)
     {
-
+        
+   
         if ($request->ajax()) {
-            $user =  DB::table('users')
+             $kode = request('unit');
+                $query =  DB::table('users')
                 ->leftJoin('ms_bidangs', 'users.kode_bidang', '=', 'ms_bidangs.kode_bidang')
                 ->leftJoin('roles', 'users.roles_id', '=', 'roles.id')
                 ->select('roles.*', 'ms_bidangs.*', 'users.*')
-                ->orderBy('users.created_at', 'desc')
-                ->get();
+                ->orderBy('users.created_at', 'desc');
+
+                // Tambahkan kondisi filter berdasarkan kode_bidang jika ada
+                if (!empty($kode)) {
+                    $query->where('users.kode_bidang', $kode);
+                }
+                $user = $query->get();
 
             return Datatables::of($user)
                 ->addIndexColumn()->editColumn('name', function ($user) {
@@ -30,7 +37,6 @@ class UsersController extends Controller
                         return $user->name;
                     }
                 })
-
                 ->editColumn('aksi', function ($user) {
                     $actionButton = '
                       <a href=" ' . route('akun.edit', $user->id) . '" class="btn waves-effect waves-light btn-success btn-sm">
@@ -44,9 +50,15 @@ class UsersController extends Controller
                 ->escapeColumns([])
                 ->make(true);
         }
+         
+        $notBidang = 
+        $bidang = DB::table('ms_bidangs')
+            ->where(DB::raw('SUBSTRING(kode_bidang, -2)'), '00')
+            ->get();
 
         $with = [
             'title' => 'Users',
+            'bidang' => $bidang
             // 'data' => $dataPegawai
         ];
         return view('User.Index')->with($with);
@@ -125,7 +137,7 @@ class UsersController extends Controller
     public function update(Request $request)
     {
         $this->validate($request, [
-          
+
             'kode_bidang' => 'required'
         ], [
             'kode_bidang.required' => 'Kode Bidang Wajib Di isi'
@@ -142,5 +154,21 @@ class UsersController extends Controller
         DB::table('users')->where('id', $request->id)->delete();
         toast('success', 'Data berhasil dihapus');
         return redirect()->back();
+    }
+
+
+    public function filter($kode_bidang)
+    {
+       
+        $data =  DB::table('users')
+        ->leftJoin('ms_bidangs', 'users.kode_bidang', '=', 'ms_bidangs.kode_bidang')
+        ->leftJoin('roles', 'users.roles_id', '=', 'roles.id')
+        ->select('roles.*', 'ms_bidangs.*', 'users.*')
+        ->where('users.kode_bidang', '=', $kode_bidang)
+        ->orderBy('users.created_at', 'desc')
+        ->get();
+      
+
+         return redirect()->route('akun.index');
     }
 }

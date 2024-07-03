@@ -49,5 +49,17 @@ class User extends Authenticatable
     {
         return $this->roles()->where('name', $role)->exists();
     }
+  
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, function($query, $search){
+            return $query->where('name', 'LIKE', '%' . $search . '%');
+        });
 
+        // $query->when($filters['kode_bidang'] ?? false, function($query, $tahapan){
+        //     return $query->whereHas('tahapan_inovasi', function($query) use ($tahapan){
+        //         $query->where('tahapan', $tahapan);
+        //     });
+        // });
+    }
 }

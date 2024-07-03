@@ -139,6 +139,7 @@ class GaleriKegiatanController extends Controller
         }
         // Gabungkan path gambar menjadi satu string
         $imagePathsString = implode(',', $imagePaths);
+        
         $dokumen =  $request->file('dokumen');
         $dokumenName = time() . $dokumen->getClientOriginalName();
         $dokumen->move(public_path($dok), $dokumenName);
